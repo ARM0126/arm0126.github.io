@@ -1,51 +1,88 @@
-
-
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Your Name — Resume & Portfolio</title>
+  <meta name="description" content="Your Name — resume and selected work." />
+  <link rel="icon" href="/favicon.ico" />
   <style>
-    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;line-height:1.6;margin:0;background:#fafafa;color:#222}
-    header,main,footer{max-width:900px;margin:auto;padding:24px}
-    header{padding-top:48px}
-    h1{margin:0 0 4px;font-size:clamp(28px,4vw,40px)}
-    .sub{color:#666;margin:0 0 12px}
-    .tags span{display:inline-block;background:#eee;border-radius:999px;padding:4px 10px;margin:4px 8px 0 0;font-size:12px}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
-    .card{background:#fff;border:1px solid #e8e8e8;border-radius:14px;padding:16px}
-    .card h3{margin:0 0 6px;font-size:18px}
-    a{color:inherit}
-    .muted{color:#666}
-    nav a{margin-right:14px}
-    .section{margin-top:28px}
-    .pill{font-size:12px;border:1px solid #ddd;border-radius:999px;padding:2px 8px}
-    .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+    /* Base */
+    :root { --maxw: 900px; }
+    * { box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6; margin: 0; background: #fafafa; color: #222;
+    }
+    header, main, footer { max-width: var(--maxw); margin: auto; padding: 24px; }
+    h1 { margin: 0 0 6px; font-size: clamp(28px, 4vw, 40px); }
+    h2 { margin: 0 0 12px; }
+    .sub { color: #666; margin: 0 0 12px; }
+
+    /* Global links */
+    a { color: #0a58ca; text-decoration: underline; }
+    a.btn { text-decoration: none; border: 1px solid #ddd; border-radius: 999px; padding: 4px 10px; font-size: 12px; color: inherit; }
+    a.btn:hover { background: #f3f3f3; }
+
+    /* Top nav (single source of truth) */
+    .topnav {
+      position: sticky; top: 0; z-index: 10;
+      display: flex; gap: 16px; align-items: center;
+      padding: 10px 24px; margin: 0; background: #fff; border-bottom: 1px solid #eee;
+    }
+    .topnav .spacer { flex: 1; }
+    .topnav a { text-decoration: none; color: #222; padding: 6px 8px; border-radius: 8px; }
+    .topnav a:hover { background: #f3f3f3; }
+
+    /* Section nav (anchors within this page) */
+    .subnav {
+      display: flex; flex-wrap: wrap; gap: 14px;
+      margin-top: 8px; border-bottom: 1px solid #eee; padding-bottom: 8px;
+    }
+    .subnav a { text-decoration: none; color: #444; padding: 4px 0; }
+    .subnav a:hover { text-decoration: underline; }
+    .subnav a.active { font-weight: 600; }
+
+    /* Layout helpers */
+    .section { margin-top: 28px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+    .card { background: #fff; border: 1px solid #e8e8e8; border-radius: 14px; padding: 16px; }
+    .card h3 { margin: 0 0 6px; font-size: 18px; }
+    .muted { color: #666; }
+    .tags span { display: inline-block; background: #eee; border-radius: 999px; padding: 4px 10px; margin: 4px 8px 0 0; font-size: 12px; }
   </style>
 </head>
 <body>
+
+  <!-- Single top navigation -->
+  <div class="topnav">
+    <a href="/">Home</a>
+    <a href="/about.html">About</a>
+    <a href="/assets/YourName_Resume.pdf">Resume</a>
+    <span class="spacer"></span>
+    <a href="https://github.com/your-username" aria-label="GitHub">GitHub</a>
+    <a href="https://www.linkedin.com/in/your-handle" aria-label="LinkedIn">LinkedIn</a>
+  </div>
+
   <header>
     <h1>Your Name</h1>
-    <p class="sub">Role / Keywords · City · <a href="mailto:you@email.com">you@email.com</a> · 
-      <a href="https://github.com/your-username">GitHub</a> · 
-      <a href="https://www.linkedin.com/in/your-handle">LinkedIn</a> · 
-      <a href="/assets/YourName_Resume.pdf" class="pill">Download PDF</a></p>
-    <nav class="row">
+    <p class="sub">Role / Keywords · City · <a href="mailto:you@email.com">you@email.com</a></p>
+
+    <!-- Section subnav (on-page anchors) -->
+    <nav class="subnav" id="subnav">
       <a href="#projects">Projects</a>
       <a href="#experience">Experience</a>
       <a href="#skills">Skills</a>
       <a href="#education">Education</a>
-      <a href="/">Home</a>
-      <a href="/about.html">About</a>
-      <a href="/assets/YourName_Resume.pdf">Resume</a>
     </nav>
   </header>
 
   <main>
-    <section class="section" id="about">
-      <h2>About</h2>
-      <p>1–2 sentence value prop: what you do, the problems you love, the impact you create.</p>
+    <!-- Optional short intro on the home page -->
+    <section class="section" id="intro">
+      <h2>About (short)</h2>
+      <p>1–2 sentence value prop: what you do, the problems you love, and the impact you create.
+        For your full story, see <a href="/about.html">About</a>.</p>
     </section>
 
     <section class="section" id="projects">
@@ -54,17 +91,17 @@
         <article class="card">
           <h3><a href="https://link-to-live-demo-or-pdf">Project / Case Study Title</a></h3>
           <p class="muted">Role · Tools · YYYY</p>
-          <p>One–two lines on outcome/impact. Link out to **anything**: demos, PDFs, decks, videos, writing, designs, datasets—not just repos.</p>
+          <p>One–two lines on outcome/impact. Link to demos, PDFs, decks, videos, writing, designs—anything.</p>
           <p class="tags"><span>Keyword</span><span>Tech</span><span>Result</span></p>
         </article>
-
         <article class="card">
           <h3><a href="https://github.com/your-username/repo">Repo-based Project</a></h3>
           <p class="muted">Role · Tools · YYYY</p>
-          <p>Brief summary. Include a <a href="https://your-username.github.io/repo">live page</a> if it has one.</p>
+          <p>Brief summary. If there’s a live page, link it: <a href="https://your-username.github.io/repo">view</a>.</p>
           <p class="tags"><span>React</span><span>API</span><span>+42% metric</span></p>
         </article>
       </div>
+      <p class="muted" style="margin-top:8px">Tip: Add more cards or link to deeper writeups under <code>/projects/…</code>.</p>
     </section>
 
     <section class="section" id="experience">
@@ -73,15 +110,17 @@
         <h3>Company — Title</h3>
         <p class="muted">MM YYYY – Present · City</p>
         <ul>
-          <li>Impact-focused bullet with metric (e.g., “Cut processing time by 30%”).</li>
+          <li>Impact-focused bullet with a metric (e.g., “Cut processing time by 30%”).</li>
           <li>Scope/ownership bullet.</li>
+          <li>Tooling/stack bullet if relevant.</li>
         </ul>
       </div>
+      <!-- Duplicate the card for additional roles -->
     </section>
 
     <section class="section" id="skills">
       <h2>Skills</h2>
-      <p class="tags"><span>Skill A</span><span>Skill B</span><span>Skill C</span></p>
+      <p class="tags"><span>Skill A</span><span>Skill B</span><span>Skill C</span><span>Tool D</span></p>
     </section>
 
     <section class="section" id="education">
@@ -93,7 +132,23 @@
   <footer class="section">
     <p class="muted">© Your Name · Built with GitHub Pages</p>
   </footer>
+
+  <!-- Small enhancement: highlight active subnav link while scrolling -->
+  <script>
+    const links = [...document.querySelectorAll('#subnav a')];
+    const ids = links.map(a => a.getAttribute('href')).filter(h => h.startsWith('#'));
+    const sections = ids.map(id => document.querySelector(id));
+    const onScroll = () => {
+      let idx = 0;
+      for (let i = 0; i < sections.length; i++) {
+        const rect = sections[i].getBoundingClientRect();
+        if (rect.top <= 120) idx = i;
+      }
+      links.forEach(l => l.classList.remove('active'));
+      if (links[idx]) links[idx].classList.add('active');
+    };
+    document.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  </script>
 </body>
 </html>
-
-
