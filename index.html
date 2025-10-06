@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your Name — Resume & Portfolio</title>
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;line-height:1.6;margin:0;background:#fafafa;color:#222}
+    header,main,footer{max-width:900px;margin:auto;padding:24px}
+    header{padding-top:48px}
+    h1{margin:0 0 4px;font-size:clamp(28px,4vw,40px)}
+    .sub{color:#666;margin:0 0 12px}
+    .tags span{display:inline-block;background:#eee;border-radius:999px;padding:4px 10px;margin:4px 8px 0 0;font-size:12px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+    .card{background:#fff;border:1px solid #e8e8e8;border-radius:14px;padding:16px}
+    .card h3{margin:0 0 6px;font-size:18px}
+    a{color:inherit}
+    .muted{color:#666}
+    nav a{margin-right:14px}
+    .section{margin-top:28px}
+    .pill{font-size:12px;border:1px solid #ddd;border-radius:999px;padding:2px 8px}
+    .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Your Name</h1>
+    <p class="sub">Role / Keywords · City · <a href="mailto:you@email.com">you@email.com</a> · 
+      <a href="https://github.com/your-username">GitHub</a> · 
+      <a href="https://www.linkedin.com/in/your-handle">LinkedIn</a> · 
+      <a href="/assets/YourName_Resume.pdf" class="pill">Download PDF</a></p>
+    <nav class="row">
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#education">Education</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="section" id="about">
+      <h2>About</h2>
+      <p>1–2 sentence value prop: what you do, the problems you love, the impact you create.</p>
+    </section>
+
+    <section class="section" id="projects">
+      <h2>Selected Work</h2>
+      <div class="grid">
+        <article class="card">
+          <h3><a href="https://link-to-live-demo-or-pdf">Project / Case Study Title</a></h3>
+          <p class="muted">Role · Tools · YYYY</p>
+          <p>One–two lines on outcome/impact. Link out to **anything**: demos, PDFs, decks, videos, writing, designs, datasets—not just repos.</p>
+          <p class="tags"><span>Keyword</span><span>Tech</span><span>Result</span></p>
+        </article>
+
+        <article class="card">
+          <h3><a href="https://github.com/your-username/repo">Repo-based Project</a></h3>
+          <p class="muted">Role · Tools · YYYY</p>
+          <p>Brief summary. Include a <a href="https://your-username.github.io/repo">live page</a> if it has one.</p>
+          <p class="tags"><span>React</span><span>API</span><span>+42% metric</span></p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="experience">
+      <h2>Experience</h2>
+      <div class="card">
+        <h3>Company — Title</h3>
+        <p class="muted">MM YYYY – Present · City</p>
+        <ul>
+          <li>Impact-focused bullet with metric (e.g., “Cut processing time by 30%”).</li>
+          <li>Scope/ownership bullet.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="skills">
+      <h2>Skills</h2>
+      <p class="tags"><span>Skill A</span><span>Skill B</span><span>Skill C</span></p>
+    </section>
+
+    <section class="section" id="education">
+      <h2>Education</h2>
+      <p>School — Degree, YYYY</p>
+    </section>
+  </main>
+
+  <footer class="section">
+    <p class="muted">© Your Name · Built with GitHub Pages</p>
+  </footer>
+</body>
+</html>
