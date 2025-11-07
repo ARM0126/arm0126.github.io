@@ -55,6 +55,18 @@
     h3{font-size:1.05rem;margin:0 0 .35rem 0;font-family:var(--sans);letter-spacing:.2px}
     p{margin:.5rem 0}
 
+        /* ====== DAILY NOTES / LAB NOTEBOOK ====== */
+    .post{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:1rem;margin:1rem 0}
+    .post h3{margin:.25rem 0 .4rem 0}
+    .post .pmeta{font-family:var(--sans);font-size:.9rem;color:var(--muted);display:flex;gap:.5rem;flex-wrap:wrap}
+    .post .ptags{display:flex;gap:.35rem;flex-wrap:wrap;margin-top:.4rem}
+    .post .tag{border-color:var(--line)}
+    .filters{display:flex;gap:.5rem;flex-wrap:wrap;margin:.5rem 0 1rem 0}
+    .filter{cursor:pointer}
+    .more{display:inline-block;margin-top:.5rem}
+    .empty{color:var(--muted);font-style:italic;margin:.5rem 0}
+
+    
     /* ====== FEATURED FIGURES ====== */
     .fig-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem}
     .figure{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden}
@@ -126,6 +138,7 @@
     <nav class="toc" aria-label="Table of contents">
       <ul>
         <li><a href="#overview">Overview</a></li>
+        <li><a href='#ontebook">Daily Notes</a></li>
         <li><a href="#figures">Figures</a></li>
         <li><a href="#publications">Publications</a></li>
         <li><a href="#experience">Experience</a></li>
@@ -143,6 +156,21 @@
       <p><strong>Interests:</strong> SPION relaxometry, tracer optimization for FIH MPI, image reconstruction, phantom design, multi‑modal co‑registration.</p>
     </section>
 
+    <!-- ===== DAILY NOTES / Research Interests ===== -->
+    <section id="notebook">
+      <h2>RDaily Notes</h2>
+         <div class="filters">
+           <span class="tag filter" data-tag="all">All</span>
+           <span class="tag filter" data-tag="MPI">MPI</span>
+           <span class="tag filter" data-tag="SEM">SEM</span>
+           <span class="tag filter" data-tag="TEM">TEM</span>
+           <span class="tag filter" data-tag="AFM">AFM</span>
+           <span class="tag filter" data-tag="CT">CT</span>
+         </div>
+         <div id="post-list"></div>
+         <div id="post-empty" class="empty" hidden>No posts match this filter.</div>       
+    </section>
+              
     <!-- ===== FIGURES ===== -->
     <section id="figures">
       <h2>Featured Figures</h2>
@@ -193,6 +221,10 @@
     <p>© <span id="year"></span> Your Name • ORCID: <span class="doi">0000-0000-0000-0000</span></p>
   </footer>
 
+
+
+
+              
   <!-- ======= Lightbox ======= -->
   <div id="lightbox" class="lightbox" role="dialog" aria-modal="true">
     <button class="lb-close" aria-label="Close" onclick="closeLB()">×</button>
@@ -213,6 +245,27 @@
       { id: 'F3', title: 'AFM height map of patterned resist', desc: 'RMS roughness 1.2 nm over 5×5 µm. Tapping mode.', thumb: '/images/afm/afm_600.jpg', full: '/images/afm/afm.jpg' }
     ];
 
+    
+    // Daily Notes posts (newest first by date). Add one entry per day.
+    const POSTS = [
+      {
+        date: '2025-11-06',
+        title: 'Relaxometry sweep on SPION batch B27',
+        tags: ['MPI','SPION','QC'],
+        summary: 'B27 shows 12% faster magnetization response vs B24; likely narrower size distribution after centrifugation step.',
+        body: '<ul><li>7 T/m, 15 kHz; ΔSNR +1.8 dB vs B24.</li><li>Next: replicate after dialysis; prep for phantom run.</li></ul>'
+      },
+      {
+        date: '2025-11-05',
+        title: 'SEM quality check of ligand exchange',
+        tags: ['SEM','SurfaceChem'],
+        summary: 'Post-exchange images show reduced agglomeration; contrast improved with low-kV imaging.',
+        body: '<p>2 kV, WD 4 mm; scale 200 nm. Consider adding brief plasma clean.</p>'
+      }
+    ];
+
+          
+          
     const PUBLICATIONS = [
       { title: 'Title of Article', authors: 'Your Name; Coauthor A; Coauthor B', venue: 'Journal Name (2024)', doi: '10.xxxx/xxxxx', pdf: '/papers/article.pdf', url: 'https://doi.org/10.xxxx/xxxxx' },
       { title: 'Nanoparticle Relaxometry for MPI', authors: 'Your Name; …', venue: 'IEEE TMI (2023)', doi: '10.xxxx/yyyyy', url: 'https://doi.org/10.xxxx/yyyyy' }
@@ -278,6 +331,52 @@
       })
     }
 
+
+   // Render Daily Notes (POSTS)
+  const postList = document.getElementById('post-list');
+  const postEmpty = document.getElementById('post-empty');
+  
+  function renderPosts(filterTag='all'){
+    const posts = [...POSTS].sort((a,b)=> b.date.localeCompare(a.date));
+    const filtered = filterTag==='all' ? posts : posts.filter(p => (p.tags||[]).includes(filterTag));
+    postList.innerHTML = '';
+    filtered.forEach(p => {
+      const el = document.createElement('article');
+      el.className = 'post';
+      const tags = (p.tags||[]).map(t=>`<span class="tag">${t}</span>`).join(' ');
+      el.innerHTML = `
+        <div class="pmeta">${new Date(p.date+'T00:00:00').toLocaleDateString(undefined,{year:'numeric',month:'short',day:'2-digit'})}</div>
+        <h3>${p.title}</h3>
+        <p>${p.summary||''}</p>
+        ${p.body?`<details><summary class="more">Details</summary><div>${p.body}</div></details>`:''}
+        <div class="ptags">${tags}</div>`;
+      postList.appendChild(el);
+    });
+    postEmpty.hidden = filtered.length>0;
+  }
+  
+  // Filters + deep-linking (#tag/MPI)
+  document.querySelectorAll('.filter').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      document.querySelectorAll('.filter').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      renderPosts(btn.dataset.tag);
+      history.replaceState(null,'', btn.dataset.tag==='all' ? '#notebook' : `#tag/${btn.dataset.tag}`);
+    });
+  });
+  
+  // Initialize (respect #tag/<X> if present)
+  (function(){
+    const m = location.hash.match(/^#tag\/(.+)$/);
+    if(m){
+      const btn=[...document.querySelectorAll('.filter')].find(b=>b.dataset.tag===m[1]);
+      if(btn){ btn.click(); return; }
+    }
+    renderPosts();
+  })();
+
+
+          
     // Lightbox
     const lb=document.getElementById('lightbox');
     const lbImg=document.getElementById('lb-img');
