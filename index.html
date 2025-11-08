@@ -4,394 +4,50 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Your Name, Ph.D. — Research Portfolio</title>
-  <meta name="description" content="Research portfolio of a physicist specializing in imaging, nanomaterials, and instrumentation." />
-  <link rel="icon" href="/favicon.ico" />
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Your Name, Ph.D. — Research Portfolio</title>
-  <meta name="description" content="Research portfolio of a physicist specializing in imaging, nanomaterials, and instrumentation." />
   <link rel="icon" href="./favicon.ico" />
-  <style>
-    /* ====== TYPOGRAPHY & THEME ====== */
-    :root {
-      --bg: #0c1117;           /* deep graphite */
-      --surface: #121826;      /* card background */
-      --ink: #e6edf3;          /* primary text */
-      --muted: #9aa4b2;        /* secondary text */
-      --line: rgba(140, 170, 200, .25);
-      --accent: #8ab4ff;       /* soft spectral blue */
-      --accent-2: #67d4c5;     /* teal accent for tags */
-      --serif: Cambria, "Times New Roman", Times, serif;
-      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      --maxw: 1100px;
-    }
-    @media (prefers-color-scheme: light) {
-      :root { --bg:#fbfbfd; --surface:#ffffff; --ink:#0d1321; --muted:#4a5568; --line:rgba(20,40,80,.12); --accent:#2a6df4; --accent-2:#118a7e; }
-    }
-    html,body{height:100%}
-    *{box-sizing:border-box}
-    body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--serif);line-height:1.6;}
-    a{color:var(--accent);text-decoration:none}
-    a:hover{text-decoration:underline}
-
-    /* Subtle backdrop */
-    .bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:60px 60px;opacity:.25}
-
-    /* ====== LAYOUT ====== */
-    header{border-bottom:1px solid var(--line);background:linear-gradient(180deg,rgba(138,180,255,.08),transparent);}
-    .wrap{max-width:var(--maxw);margin:0 auto;padding:2rem 1.5rem}
-    .masthead{display:flex;gap:2rem;align-items:center}
-    .headshot{width:110px;height:110px;border-radius:50%;overflow:hidden;border:1px solid var(--line);background:var(--surface);box-shadow:0 8px 24px rgba(0,0,0,.25)}
-    .headshot img{width:100%;height:100%;object-fit:cover}
-    .title h1{font-size:clamp(1.8rem,4vw,2.4rem);margin:0 0 .25rem 0;letter-spacing:.2px}
-    .title .role{font-family:var(--sans);font-weight:500;color:var(--muted);}
-
-    .meta{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:.75rem}
-    .chip{font-family:var(--sans);font-size:.9rem;border:1px solid var(--line);padding:.3rem .6rem;border-radius:999px;color:var(--muted)}
-
-    nav.toc{border-bottom:1px solid var(--line);position:sticky;top:0;background:linear-gradient(180deg,rgba(0,0,0,.4),rgba(0,0,0,0));backdrop-filter:saturate(120%) blur(4px);z-index:5}
-    .toc ul{display:flex;gap:1rem;flex-wrap:wrap;list-style:none;padding:.75rem 1.5rem;margin:0;max-width:var(--maxw);margin-inline:auto}
-    .toc a{font-family:var(--sans);font-size:.95rem;color:var(--muted)}
-    .toc a:hover{color:var(--ink)}
-
-    section{padding:2.25rem 0;border-bottom:1px solid var(--line)}
-    h2{font-size:clamp(1.4rem,3vw,1.8rem);margin:.2rem 0 1rem 0}
-    h3{font-size:1.05rem;margin:0 0 .35rem 0;font-family:var(--sans);letter-spacing:.2px}
-    p{margin:.5rem 0}
-
-    /* ====== FEATURED FIGURES ====== */
-    .fig-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem}
-    .figure{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden}
-    .figure .thumb{aspect-ratio:4/3;background:#0c0f14;display:block}
-    .figure img{width:100%;height:100%;object-fit:cover;display:block}
-    .figure .cap{padding:.9rem 1rem}
-    .figure .cap .fno{font-family:var(--mono);font-size:.8rem;color:var(--muted)}
-    .figure .cap .ftitle{margin:.2rem 0 .2rem 0}
-    .figure .cap .fdesc{color:var(--muted);font-size:.95rem}
-    .figure:hover{border-color:var(--accent)}
-
-    /* Lightbox */
-    .lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);align-items:center;justify-content:center;z-index:10}
-    .lightbox.active{display:flex}
-    .lb-inner{max-width:min(1200px,92vw);max-height:92vh}
-    .lb-inner img{max-width:100%;max-height:80vh;border:1px solid var(--line);border-radius:8px}
-    .lb-cap{margin-top:1rem;text-align:center;color:#c7d1dd}
-    .lb-close{position:absolute;top:1rem;right:1rem;font-size:2rem;line-height:1;cursor:pointer;background:var(--surface);border:1px solid var(--line);border-radius:50%;width:44px;height:44px;display:grid;place-items:center}
-
-    /* ====== PUBLICATIONS ====== */
-    .pub{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:1rem;margin:.75rem 0}
-    .pub .venue{font-style:italic;color:var(--muted)}
-    .pub .actions{margin-top:.4rem;display:flex;gap:.5rem;flex-wrap:wrap}
-    .btn{display:inline-block;border:1px solid var(--line);padding:.35rem .65rem;border-radius:8px;font-family:var(--sans);font-size:.9rem}
-    .btn:hover{border-color:var(--accent)}
-    .doi{font-family:var(--mono);font-size:.85rem;color:var(--muted)}
-
-    /* ====== CV / DOCUMENTS ====== */
-    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem}
-    .card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:1rem}
-    .tag{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:.25rem .6rem;font-family:var(--sans);font-size:.85rem;color:var(--muted)}
-
-    /* ====== DAILY NOTES / LAB NOTEBOOK ====== */
-    .post{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:1rem;margin:1rem 0}
-    .post h3{margin:.25rem 0 .4rem 0}
-    .post .pmeta{font-family:var(--sans);font-size:.9rem;color:var(--muted);display:flex;gap:.5rem;flex-wrap:wrap}
-    .post .ptags{display:flex;gap:.35rem;flex-wrap:wrap;margin-top:.4rem}
-    .post .tag{border-color:var(--line)}
-    .filters{display:flex;gap:.5rem;flex-wrap:wrap;margin:.5rem 0 1rem 0}
-    .filter{cursor:pointer}
-    .more{display:inline-block;margin-top:.5rem}
-    .empty{color:var(--muted);font-style:italic;margin:.5rem 0}
-
-    /* ====== FOOTER & PRINT ====== */
-    footer{padding:2rem 0;color:var(--muted)}
-    @media print{
-      nav.toc, .lightbox, .bg-grid{display:none !important}
-      a[href]:after{content:" (" attr(href) ")";font-size:.85em;color:#666}
-      section{page-break-inside:avoid}
-    }
-  </style>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Your Name",
-    "jobTitle": "Senior Applications Engineer",
-    "alumniOf": "University of South Carolina",
-    "sameAs": ["https://github.com/yourusername","https://www.linkedin.com/in/yourusername"],
-    "knowsAbout": ["Magnetic Particle Imaging","Nanoparticles","Electron Microscopy","Medical Imaging"]
-  }
-  </script>
+  <link rel="stylesheet" href="./assets/css/site.css" />
 </head>
 <body>
-  <div class="bg-grid" aria-hidden="true"></div>
   <header>
-    <div class="wrap masthead">
-      <div class="headshot"><img src="./images/profile.jpg" alt="Portrait of Your Name"></div>
-      <div class="title">
-        <h1>Your Name, Ph.D.</h1>
-        <div class="role">Applications & Imaging Physics • Nanomaterials • Instrumentation</div>
-        <div class="meta">
-          <span class="chip">California, USA</span>
-          <a class="chip" href="mailto:you@example.com">you@example.com</a>
-          <a class="chip" href="https://github.com/yourusername">GitHub</a>
-          <a class="chip" href="https://www.linkedin.com/in/yourusername">LinkedIn</a>
-        </div>
-      </div>
-    </div>
-    <nav class="toc" aria-label="Table of contents">
-      <ul>
-        <li><a href="#overview">Overview</a></li>
-        <li><a href="#notebook">Research Log</a></li>
-        <li><a href="#figures">Figures</a></li>
-        <li><a href="#publications">Publications</a></li>
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#documents">Documents</a></li>
-        <li><a href="#contact">Contact</a></li>
+    <div class="wrap">
+      <h1>Your Name, Ph.D.</h1>
+      <p class="small">Applications & Imaging Physics • Nanomaterials • Instrumentation</p>
+      <ul class="nav">
+        <li><a href="./index.html" aria-current="page">Home</a></li>
+        <li><a href="./figures/index.html">Figures</a></li>
+        <li><a href="./publications/index.html">Publications</a></li>
+        <li><a href="./experience/index.html">Experience</a></li>
+        <li><a href="./documents/index.html">Documents</a></li>
+        <li><a href="./contact/index.html">Contact</a></li>
       </ul>
-    </nav>
+    </div>
   </header>
 
   <main class="wrap">
-    <!-- ===== OVERVIEW ===== -->
-    <section id="overview">
-      <h2>Research Overview</h2>
-      <p>I design, validate, and deploy imaging systems and nanomaterials for Magnetic Particle Imaging (MPI) and allied modalities. My work spans nanoparticle synthesis, metrology (SEM/TEM/AFM, magnetometry), and clinical translation including IRB-facing documentation and system validation.</p>
-      <p><strong>Interests:</strong> SPION relaxometry, tracer optimization for FIH MPI, image reconstruction, phantom design, multi-modal co-registration.</p>
+    <section>
+      <h2>Overview</h2>
+      <p>
+        I design, validate, and deploy imaging systems and nanomaterials for Magnetic Particle Imaging (MPI)
+        and allied modalities. Work spans nanoparticle synthesis, metrology (SEM/TEM/AFM, magnetometry),
+        and clinical translation.
+      </p>
     </section>
 
-    <!-- ===== DAILY NOTES / LAB NOTEBOOK ===== -->
-    <section id="notebook">
-      <h2>Research Log (Daily)</h2>
-      <div class="filters">
-        <span class="tag filter active" data-tag="all">All</span>
-        <span class="tag filter" data-tag="MPI">MPI</span>
-        <span class="tag filter" data-tag="SEM">SEM</span>
-        <span class="tag filter" data-tag="TEM">TEM</span>
-        <span class="tag filter" data-tag="AFM">AFM</span>
-        <span class="tag filter" data-tag="CT">CT</span>
+    <section>
+      <h2>Highlights</h2>
+      <div class="card">
+        <ul>
+          <li>Lead nanoparticle development and validation for FIH MPI system.</li>
+          <li>Imaging & metrology: SEM, TEM, AFM, relaxometry, phantom design.</li>
+          <li>Docs on request: CV, research statement, teaching statement.</li>
+        </ul>
       </div>
-      <div id="post-list"></div>
-      <div id="post-empty" class="empty" hidden>No posts match this filter.</div>
-    </section>
-
-    <!-- ===== FIGURES ===== -->
-    <section id="figures">
-      <h2>Featured Figures</h2>
-      <div id="fig-grid" class="fig-grid"></div>
-    </section>
-
-    <!-- ===== PUBLICATIONS ===== -->
-    <section id="publications">
-      <h2>Publications</h2>
-      <div id="pub-list"></div>
-    </section>
-
-    <!-- ===== EXPERIENCE (compact, CV-style) ===== -->
-    <section id="experience">
-      <h2>Selected Experience</h2>
-      <div class="cards">
-        <article class="card">
-          <h3>Senior Applications Engineer — Medical Imaging</h3>
-          <div class="tag">Mar 2024 – Present • California</div>
-          <p>Lead nanoparticle development and validation for FIH MPI system; design reviews, SOPs, and clinical collaboration.</p>
-        </article>
-        <article class="card">
-          <h3>Applications Support Engineer — Medical Imaging</h3>
-          <div class="tag">Nov 2022 – Feb 2024</div>
-          <p>Global site support for MPI & hyperthermia systems; FAT/SAT, training, and acceptance criteria.</p>
-        </article>
-        <article class="card">
-          <h3>Graduate Research Assistant — Physics</h3>
-          <div class="tag">2016 – 2022</div>
-          <p>Magnetic nanoparticle self-assembly; image analysis tooling; nanofabrication and metrology.</p>
-        </article>
-      </div>
-    </section>
-
-    <!-- ===== DOCUMENTS ===== -->
-    <section id="documents">
-      <h2>Documents</h2>
-      <div id="doc-cards" class="cards"></div>
     </section>
   </main>
 
-  <footer id="contact" class="wrap">
-    <p>© <span id="year"></span> Your Name • ORCID: <span class="doi">0000-0000-0000-0000</span></p>
+  <footer class="wrap footer">
+    © <span id="y"></span> Your Name · <a href="mailto:you@example.com">you@example.com</a>
   </footer>
-
-  <!-- ======= Lightbox ======= -->
-  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true">
-    <button class="lb-close" aria-label="Close" onclick="closeLB()">×</button>
-    <div class="lb-inner">
-      <img id="lb-img" src="" alt="Expanded figure">
-      <div class="lb-cap">
-        <div id="lb-title" style="font-weight:600"></div>
-        <div id="lb-desc" style="opacity:.9"></div>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    // ======= EDIT THESE ARRAYS ONLY =======
-    const FIGURES = [
-      { id: 'F1', title: 'Resolution phantom in MPI (7 T/m)', desc: 'Line pairs reconstructed with x-space method. Voxel 1×1×1 mm³. Scale bar 10 mm.', thumb: './images/mpi/phantom_600.jpg', full: './images/mpi/phantom.jpg', credit: 'Your Lab, 2025' },
-      { id: 'F2', title: 'SPION morphology in SEM', desc: 'Monodisperse Fe3O4 cores (d = 10 ± 1.2 nm). Scale bar 200 nm.', thumb: './images/sem/spion_600.jpg', full: './images/sem/spion.jpg', credit: 'Your Lab, 2024' },
-      { id: 'F3', title: 'AFM height map of patterned resist', desc: 'RMS roughness 1.2 nm over 5×5 µm. Tapping mode.', thumb: './images/afm/afm_600.jpg', full: './images/afm/afm.jpg' }
-    ];
-
-    const PUBLICATIONS = [
-      { title: 'Title of Article', authors: 'Your Name; Coauthor A; Coauthor B', venue: 'Journal Name (2024)', doi: '10.xxxx/xxxxx', pdf: './papers/article.pdf', url: 'https://doi.org/10.xxxx/xxxxx' },
-      { title: 'Nanoparticle Relaxometry for MPI', authors: 'Your Name; …', venue: 'IEEE TMI (2023)', doi: '10.xxxx/yyyyy', url: 'https://doi.org/10.xxxx/yyyyy' }
-    ];
-
-    const DOCUMENTS = [
-      { title: 'Curriculum Vitae', file: './assets/CV.pdf', note: 'Updated Nov 2025' },
-      { title: 'Research Statement', file: './assets/ResearchStatement.pdf', note: '2 pages' },
-      { title: 'Teaching Statement', file: './assets/TeachingStatement.pdf' }
-    ];
-
-    // Daily Research Log posts (newest first by date)
-    const POSTS = [
-      {
-        date: '2025-11-06',
-        title: 'Relaxometry sweep on SPION batch B27',
-        tags: ['MPI','SPION','QC'],
-        summary: 'B27 shows ~12% faster magnetization response vs B24; likely narrower size distribution post-centrifugation.',
-        body: '<ul><li>7 T/m, 15 kHz; ΔSNR +1.8 dB vs B24.</li><li>Next: replicate after dialysis; prep for phantom run.</li></ul>'
-      },
-      {
-        date: '2025-11-05',
-        title: 'SEM quality check of ligand exchange',
-        tags: ['SEM','SurfaceChem'],
-        summary: 'Post-exchange images show reduced agglomeration; contrast improved with low-kV imaging.',
-        body: '<p>2 kV, WD 4 mm; scale 200 nm. Consider brief plasma clean to remove residues.</p>'
-      }
-    ];
-    // ======= END EDITABLE SECTION =======
-
-    // Render Figures
-    const grid = document.getElementById('fig-grid');
-    function renderFigures(){
-      grid.innerHTML='';
-      FIGURES.forEach((f,i)=>{
-        const card=document.createElement('figure');
-        card.className='figure';
-        card.innerHTML=`
-          <a class="thumb" href="#" aria-label="Open ${f.id}" onclick="openLB(${i});return false;">
-            <img loading="lazy" src="${f.thumb || f.full}" alt="${f.title}">
-          </a>
-          <figcaption class="cap">
-            <div class="fno">${f.id}</div>
-            <div class="ftitle">${f.title}</div>
-            <div class="fdesc">${f.desc || ''}</div>
-          </figcaption>`;
-        grid.appendChild(card);
-      })
-    }
-
-    // Render Publications
-    const pubList = document.getElementById('pub-list');
-    function renderPubs(){
-      pubList.innerHTML='';
-      PUBLICATIONS.forEach((p, idx)=>{
-        const el=document.createElement('article');
-        el.className='pub';
-        el.innerHTML=`
-          <div><strong>[${idx+1}] ${p.title}</strong></div>
-          <div>${p.authors}</div>
-          <div class="venue">${p.venue}</div>
-          ${p.doi?`<div class="doi">doi:${p.doi}</div>`:''}
-          <div class="actions">
-            ${p.url?`<a class="btn" href="${p.url}" target="_blank" rel="noopener">View</a>`:''}
-            ${p.pdf?`<a class="btn" href="${p.pdf}" download>PDF</a>`:''}
-            <button class="btn" onclick="copyBib(${idx})">BibTeX</button>
-          </div>`;
-        pubList.appendChild(el);
-      })
-    }
-
-    // Render Documents
-    const docCards = document.getElementById('doc-cards');
-    function renderDocs(){
-      docCards.innerHTML='';
-      DOCUMENTS.forEach(d=>{
-        const c=document.createElement('article');
-        c.className='card';
-        c.innerHTML=`<h3>${d.title}</h3><p><a class="btn" href="${d.file}" download>Download</a> ${d.note?`<span class="tag">${d.note}</span>`:''}</p>`;
-        docCards.appendChild(c);
-      })
-    }
-
-    // Render Daily Notes (POSTS)
-    const postList = document.getElementById('post-list');
-    const postEmpty = document.getElementById('post-empty');
-    function renderPosts(filterTag='all'){
-      const posts = [...POSTS].sort((a,b)=> b.date.localeCompare(a.date));
-      const filtered = filterTag==='all' ? posts : posts.filter(p => (p.tags||[]).includes(filterTag));
-      postList.innerHTML = '';
-      filtered.forEach(p => {
-        const el = document.createElement('article');
-        el.className = 'post';
-        const tags = (p.tags||[]).map(t=>`<span class="tag">${t}</span>`).join(' ');
-        el.innerHTML = `
-          <div class="pmeta">${new Date(p.date+'T00:00:00').toLocaleDateString(undefined,{year:'numeric',month:'short',day:'2-digit'})}</div>
-          <h3>${p.title}</h3>
-          <p>${p.summary||''}</p>
-          ${p.body?`<details><summary class="more">Details</summary><div>${p.body}</div></details>`:''}
-          <div class="ptags">${tags}</div>`;
-        postList.appendChild(el);
-      });
-      postEmpty.hidden = filtered.length>0;
-    }
-
-    // Filters + deep-linking (#tag/MPI)
-    document.querySelectorAll('.filter').forEach(btn=>{
-      btn.addEventListener('click',()=>{
-        document.querySelectorAll('.filter').forEach(b=>b.classList.remove('active'));
-        btn.classList.add('active');
-        renderPosts(btn.dataset.tag);
-        history.replaceState(null,'', btn.dataset.tag==='all' ? '#notebook' : `#tag/${btn.dataset.tag}`);
-      })
-    });
-
-    // Lightbox
-    const lb=document.getElementById('lightbox');
-    const lbImg=document.getElementById('lb-img');
-    const lbTitle=document.getElementById('lb-title');
-    const lbDesc=document.getElementById('lb-desc');
-    function openLB(i){ const f=FIGURES[i]; lbImg.src=f.full||f.thumb; lbTitle.textContent=f.id+': '+f.title; lbDesc.textContent=f.desc||''; lb.classList.add('active'); }
-    function closeLB(){ lb.classList.remove('active'); }
-    document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeLB(); })
-
-    // Clipboard (simple BibTeX stub)
-    function copyBib(i){
-      const p = PUBLICATIONS[i];
-      const bib = `@article{${(p.title||'key').toLowerCase().replace(/[^a-z0-9]+/g,'')},
-  title={${p.title}},
-  author={${p.authors}},
-  journal={${p.venue||''}},
-  doi={${p.doi||''}},
-  year={${(p.venue||'').match(/(20\\d{2})/)?.[1]||''}}`;
-      navigator.clipboard.writeText(bib).then(()=>{ alert('BibTeX copied'); });
-    }
-
-    // Boot
-    document.getElementById('year').textContent=new Date().getFullYear();
-
-    // Honor deep link to #tag/<X>, else default render
-    (function(){
-      renderFigures(); renderPubs(); renderDocs();
-      const m = location.hash.match(/^#tag\/(.+)$/);
-      if(m){
-        const btn=[...document.querySelectorAll('.filter')].find(b=>b.dataset.tag===m[1]);
-        if(btn){ btn.click(); return; }
-      }
-      renderPosts();
-    })();
-  </script>
+  <script>document.getElementById('y').textContent=new Date().getFullYear();</script>
 </body>
 </html>
