@@ -31,3 +31,11 @@ h2{margin:.25rem 0 1rem 0;font-size:clamp(1.3rem,3vw,1.6rem)}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
 .tile{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:.8rem}
 
+
+details.pub { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: .8rem; }
+details.pub summary { cursor: pointer; list-style: none; }
+details.pub summary::-webkit-details-marker { display: none; }
+details.pub[open] { border-color: var(--accent); }
+.abstract { margin-top: .6rem; color: var(--muted); }
+
+
