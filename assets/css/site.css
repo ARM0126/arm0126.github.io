@@ -24,8 +24,8 @@ h2{margin:.25rem 0 1rem 0;font-size:clamp(1.3rem,3vw,1.6rem)}
 /*adding profile pic*/
 .profile-pic{
   display:block;
-  width:120px;
-  height:120px;
+  width:200px;
+  height:200px;
   border-radius:50%;
   object-fit:cover;
   margin:1rem 0;
