@@ -49,6 +49,43 @@ details.pub summary::-webkit-details-marker { display: none; }
 details.pub[open] { border-color: var(--accent); }
 .abstract { margin-top: .6rem; color: var(--muted); }
 
+.pub-layout{
+  display:flex;
+  align-items:flex-start;
+  gap:2rem;
+}
+
+/* Let the list take most of the width */
+.pub-layout .publist{
+  flex:1 1 60%;
+}
+
+/* Metrics figure on the right */
+.metrics-figure{
+  flex:0 0 260px;
+  text-align:center;
+  font-family:var(--sans);
+  font-size:.85rem;
+  color:var(--muted);
+}
+.metrics-figure img{
+  width:100%;
+  height:auto;
+  border-radius:8px;
+  border:1px solid var(--line);
+}
+
+/* Stack on small screens */
+@media (max-width:800px){
+  .pub-layout{
+    flex-direction:column;
+  }
+  .metrics-figure{
+    align-self:center;
+  }
+}
+
+/* 
 .metrics-figure{
   float:right;
   max-width:260px;
@@ -73,4 +110,4 @@ details.pub[open] { border-color: var(--accent); }
 }
 
 
-
+ */
