@@ -22,6 +22,17 @@ h1{margin:0 0 .25rem 0;font-size:clamp(1.8rem,4vw,2.2rem)}
 h2{margin:.25rem 0 1rem 0;font-size:clamp(1.3rem,3vw,1.6rem)}
 .small{font-family:var(--sans);color:var(--muted);font-size:.95rem}
 
+.profile-pic{
+  display:block;
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  object-fit:cover;
+  margin:1rem 0;
+  border:2px solid var(--line);
+}
+
+
 /* Publications list */
 .publist{display:grid;gap:.85rem}
 .publist li{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:.8rem}
