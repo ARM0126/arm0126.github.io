@@ -3,9 +3,97 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Figures — Your Name, Ph.D.</title>
+  <title>Gallery — Your Name, Ph.D.</title>
   <link rel="icon" href="../favicon.ico" />
+  <!-- keep your site-wide styles/background -->
   <link rel="stylesheet" href="../assets/css/site.css" />
+
+  <style>
+    /* --- page-local styles just for the gallery tiles --- */
+    :root {
+      --line: rgba(140,170,200,.25);
+      --surface: rgba(255,255,255,0.02);
+      --ink: #e6edf3;
+      --muted: #9aa4b2;
+      --accent: #8ab4ff;
+    }
+    .grid-fig {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1rem;
+    }
+    .tile {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .carousel {
+      position: relative;
+      background: #0b0f16;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      user-select: none;
+    }
+    .carousel img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .navbtn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.45);
+      color: var(--ink);
+      font-size: 1.1rem;
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: background .2s, border-color .2s;
+    }
+    .navbtn:hover { background: rgba(0,0,0,.7); border-color: var(--accent); }
+    .navbtn.prev { left: .6rem; }
+    .navbtn.next { right: .6rem; }
+
+    .meta {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: .75rem; padding: .6rem .75rem; border-top: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(138,180,255,.06), transparent);
+    }
+    .title {
+      font-weight: 600;
+      font-size: .98rem;
+      color: var(--ink);
+      line-height: 1.2;
+    }
+    .count {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .85rem; color: var(--muted);
+      border: 1px solid var(--line);
+      border-radius: 999px; padding: .15rem .5rem;
+      white-space: nowrap;
+    }
+    .caption {
+      padding: .5rem .75rem .8rem;
+      color: var(--muted);
+      font-size: .92rem;
+      min-height: 2.2em;
+    }
+    /* Touch helpers (small hint region so arrows are easy on mobile) */
+    .hit-left, .hit-right {
+      position: absolute; top: 0; bottom: 0; width: 28%;
+    }
+    .hit-left { left: 0; }
+    .hit-right { right: 0; }
+  </style>
 </head>
 <body>
   <header>
@@ -25,18 +113,167 @@
   <main class="wrap">
     <section>
       <h2>Selected Figures</h2>
-      <div class="grid">
-        <div class="tile"><strong>F1:</strong> MPI resolution phantom (7 T/m). Scale bar 10 mm.</div>
-        <div class="tile"><strong>F2:</strong> SEM of SPION morphology; d = 10 ± 1.2 nm.</div>
-        <div class="tile"><strong>F3:</strong> AFM height map; RMS roughness 1.2 nm (5×5 µm).</div>
-      </div>
+
+      <!-- Grid of 6 carousels -->
+      <div id="figGrid" class="grid-fig"></div>
     </section>
   </main>
 
   <footer class="wrap footer">
     © <span id="y"></span> Your Name · <a href="mailto:you@example.com">you@example.com</a>
   </footer>
-  <script>document.getElementById('y').textContent=new Date().getFullYear();</script>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // ====== EDIT THIS DATA ONLY ======
+    // Each tile = { title, caption, images: [ {src, alt}, ... ] }
+    // Put your images under /images/...; use real paths.
+    const GALLERIES = [
+      {
+        title: "MPI — Resolution Phantom (7 T/m)",
+        caption: "Line pairs; x-space recon; voxel 1×1×1 mm³. Scale bar 10 mm.",
+        images: [
+          { src: "/images/mpi/phantom_1.jpg", alt: "MPI phantom view 1" },
+          { src: "/images/mpi/phantom_2.jpg", alt: "MPI phantom view 2" },
+          { src: "/images/mpi/phantom_3.jpg", alt: "MPI phantom view 3" }
+        ]
+      },
+      {
+        title: "SEM — SPION Morphology",
+        caption: "Monodisperse Fe3O4; d = 10 ± 1.2 nm. Scale bar 200 nm.",
+        images: [
+          { src: "/images/sem/spion_1.jpg", alt: "SEM SPION 1" },
+          { src: "/images/sem/spion_2.jpg", alt: "SEM SPION 2" }
+        ]
+      },
+      {
+        title: "TEM — Core-shell Contrast",
+        caption: "High-res TEM; lattice fringes visible.",
+        images: [
+          { src: "/images/tem/tem_1.jpg", alt: "TEM 1" },
+          { src: "/images/tem/tem_2.jpg", alt: "TEM 2" },
+          { src: "/images/tem/tem_3.jpg", alt: "TEM 3" }
+        ]
+      },
+      {
+        title: "AFM — Height Map (5×5 µm)",
+        caption: "Tapping mode; RMS roughness 1.2 nm.",
+        images: [
+          { src: "/images/afm/afm_1.jpg", alt: "AFM 1" },
+          { src: "/images/afm/afm_2.jpg", alt: "AFM 2" }
+        ]
+      },
+      {
+        title: "CT / MPI Co-registration",
+        caption: "Rigid registration; fiducial-based transform.",
+        images: [
+          { src: "/images/ct_mpi/coreg_1.jpg", alt: "Coreg 1" },
+          { src: "/images/ct_mpi/coreg_2.jpg", alt: "Coreg 2" },
+          { src: "/images/ct_mpi/coreg_3.jpg", alt: "Coreg 3" }
+        ]
+      },
+      {
+        title: "Hyperthermia — Thermal Map",
+        caption: "Power sweep; ΔT vs time; ROI overlay.",
+        images: [
+          { src: "/images/hyperthermia/therm_1.jpg", alt: "Thermal 1" },
+          { src: "/images/hyperthermia/therm_2.jpg", alt: "Thermal 2" }
+        ]
+      }
+    ];
+    // ====== END EDITABLE DATA ======
+
+    const grid = document.getElementById('figGrid');
+
+    function makeTile(gal) {
+      const tile = document.createElement('article');
+      tile.className = 'tile';
+
+      // current index per tile
+      let idx = 0;
+
+      // carousel
+      const car = document.createElement('div');
+      car.className = 'carousel';
+      car.tabIndex = 0;
+
+      const img = document.createElement('img');
+      img.loading = 'lazy';
+      img.alt = gal.images[0].alt || gal.title;
+      img.src = gal.images[0].src;
+
+      const prev = document.createElement('button');
+      prev.className = 'navbtn prev';
+      prev.setAttribute('aria-label', 'Previous image');
+      prev.innerHTML = '❮';
+
+      const next = document.createElement('button');
+      next.className = 'navbtn next';
+      next.setAttribute('aria-label', 'Next image');
+      next.innerHTML = '❯';
+
+      // big hit areas on mobile for easier taps
+      const hitL = document.createElement('div'); hitL.className = 'hit-left';
+      const hitR = document.createElement('div'); hitR.className = 'hit-right';
+
+      car.append(img, prev, next, hitL, hitR);
+
+      // meta row
+      const meta = document.createElement('div');
+      meta.className = 'meta';
+      const title = document.createElement('div'); title.className = 'title'; title.textContent = gal.title;
+      const count = document.createElement('div'); count.className = 'count'; count.textContent = `1 of ${gal.images.length}`;
+      meta.append(title, count);
+
+      // caption
+      const cap = document.createElement('div');
+      cap.className = 'caption';
+      cap.textContent = gal.caption || '';
+
+      tile.append(car, meta, cap);
+
+      // helpers
+      function show(i){
+        idx = (i + gal.images.length) % gal.images.length;
+        const g = gal.images[idx];
+        img.src = g.src;
+        img.alt = g.alt || gal.title;
+        count.textContent = `${idx+1} of ${gal.images.length}`;
+      }
+      function nextImg(){ show(idx+1); }
+      function prevImg(){ show(idx-1); }
+
+      next.addEventListener('click', nextImg);
+      prev.addEventListener('click', prevImg);
+      hitL.addEventListener('click', prevImg);
+      hitR.addEventListener('click', nextImg);
+
+      // keyboard
+      car.addEventListener('keydown', (e)=>{
+        if (e.key === 'ArrowRight') nextImg();
+        if (e.key === 'ArrowLeft') prevImg();
+      });
+
+      // swipe (simple)
+      let sx = null;
+      car.addEventListener('pointerdown', e=>{ sx = e.clientX; });
+      car.addEventListener('pointerup', e=>{
+        if (sx == null) return;
+        const dx = e.clientX - sx;
+        if (Math.abs(dx) > 30) { dx < 0 ? nextImg() : prevImg(); }
+        sx = null;
+      });
+
+      return tile;
+    }
+
+    function render(){
+      grid.innerHTML = '';
+      GALLERIES.forEach(g => grid.appendChild(makeTile(g)));
+    }
+
+    render();
+  </script>
 </body>
 </html>
-
