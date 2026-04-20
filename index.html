@@ -1,0 +1,984 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>[Your Name] — Research Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── Tokens ── */
+    :root {
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-serif: 'Spectral', Georgia, serif;
+      --radius: 6px;
+      --nav-h: 52px;
+      --max-w: 720px;
+    }
+    [data-theme="light"] {
+      --bg:      #f7f6f3;
+      --surface: #ffffff;
+      --border:  #e4e4e0;
+      --ink:     #18181b;
+      --sub:     #3f3f46;
+      --muted:   #71717a;
+      --accent:  #2d5be3;
+      --tag-bg:  #f0f0ee;
+    }
+    [data-theme="dark"] {
+      --bg:      #111110;
+      --surface: #1a1a18;
+      --border:  #2e2e2c;
+      --ink:     #e8e8e4;
+      --sub:     #c4c4be;
+      --muted:   #7c7c76;
+      --accent:  #7cacff;
+      --tag-bg:  #222220;
+    }
+
+    /* ── Base ── */
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.6;
+      transition: background .25s, color .25s;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Sticky header ── */
+    #topbar {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      height: var(--nav-h);
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 2rem;
+      gap: 1.5rem;
+    }
+    #logo {
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--ink);
+      letter-spacing: -.01em;
+      margin-right: auto;
+      text-decoration: none;
+    }
+    #logo:hover { text-decoration: none; }
+    .topnav { display: flex; gap: .1rem; }
+    .topnav a {
+      font-size: .8rem;
+      font-weight: 500;
+      color: var(--muted);
+      padding: .3rem .6rem;
+      border-radius: var(--radius);
+      text-decoration: none;
+      letter-spacing: .01em;
+      transition: color .15s, background .15s;
+    }
+    .topnav a:hover { color: var(--ink); background: var(--border); text-decoration: none; }
+    #theme-btn {
+      background: none;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      width: 30px; height: 30px;
+      border-radius: var(--radius);
+      font-size: .85rem;
+      display: grid; place-items: center;
+      color: var(--muted);
+      transition: background .15s, color .15s;
+      flex-shrink: 0;
+    }
+    #theme-btn:hover { background: var(--border); color: var(--ink); }
+
+    /* ── Page ── */
+    main {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 3.5rem 2rem 6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    /* ── Hero ── */
+    #hero { padding-bottom: 3rem; border-bottom: 1px solid var(--border); }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: start;
+    }
+    .hero-name {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      font-weight: 600;
+      letter-spacing: -.02em;
+      line-height: 1.1;
+      color: var(--ink);
+      margin-bottom: .4rem;
+    }
+    .hero-title {
+      font-size: .9rem;
+      font-weight: 400;
+      color: var(--muted);
+      letter-spacing: .01em;
+      margin-bottom: 1.25rem;
+    }
+    .hero-bio {
+      font-size: .975rem;
+      color: var(--sub);
+      line-height: 1.7;
+      max-width: 52ch;
+    }
+    .hero-links { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: 1.25rem; }
+    .hero-link {
+      font-size: .78rem;
+      font-weight: 500;
+      padding: .28rem .7rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--muted);
+      background: var(--surface);
+      text-decoration: none;
+      letter-spacing: .01em;
+      transition: color .15s, border-color .15s;
+    }
+    .hero-link:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
+    .profile-pic {
+      width: 130px; height: 130px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    /* ── Section ── */
+    .section { border-bottom: 1px solid var(--border); }
+    .section-toggle {
+      width: 100%;
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.4rem 0;
+      text-align: left;
+      gap: 1rem;
+    }
+    .section-toggle:hover .section-title { color: var(--ink); }
+    .section-title {
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--muted);
+      transition: color .15s;
+    }
+    .section-icon {
+      font-size: .7rem;
+      color: var(--muted);
+      transition: transform .25s;
+      flex-shrink: 0;
+    }
+    .section-icon.open { transform: rotate(45deg); }
+    .section-body { overflow: hidden; }
+    .section-body.collapsed { display: none; }
+    .section-body-inner { padding-bottom: 1.75rem; }
+
+    /* ── SKILLS ── */
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 0; }
+    .skill-card {
+      padding: .9rem 1rem .9rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .skill-card:nth-child(odd) { padding-right: 2rem; }
+    .skill-group {
+      font-size: .72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--accent);
+      margin-bottom: .35rem;
+    }
+    .skill-items {
+      font-size: .88rem;
+      color: var(--sub);
+      line-height: 1.6;
+    }
+
+    /* ── EXPERIENCE ── */
+    .exp-list { display: flex; flex-direction: column; gap: 0; }
+    .exp-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: .5rem 1.5rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+      align-items: baseline;
+    }
+    .exp-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .exp-role {
+      font-size: .97rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: .12rem;
+    }
+    .exp-org {
+      font-size: .85rem;
+      color: var(--accent);
+      margin-bottom: .35rem;
+    }
+    .exp-summary { font-size: .88rem; color: var(--muted); line-height: 1.6; }
+    .exp-date {
+      font-size: .78rem;
+      color: var(--muted);
+      white-space: nowrap;
+      font-weight: 400;
+      text-align: right;
+    }
+
+    /* ── GALLERY menu (main page) ── */
+    .gal-menu { list-style: none; display: flex; flex-direction: column; gap: 0; }
+    .gal-menu-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      background: none;
+      border: none;
+      border-bottom: 1px solid var(--border);
+      padding: .75rem 0;
+      cursor: pointer;
+      font-family: var(--font-sans);
+      font-size: .92rem;
+      font-weight: 500;
+      color: var(--ink);
+      text-align: left;
+      transition: color .15s;
+    }
+    .gal-menu-item:first-child { border-top: 1px solid var(--border); }
+    .gal-menu-item:hover { color: var(--accent); }
+    .gal-menu-item .gal-arrow { font-size: .8rem; color: var(--muted); }
+    .gal-menu-item:hover .gal-arrow { color: var(--accent); }
+
+    /* ── GALLERY overlay ── */
+    #gal-overlay {
+      position: fixed; inset: 0; z-index: 100;
+      display: flex;
+      background: var(--bg);
+    }
+    #gal-overlay[hidden] { display: none; }
+
+    /* sidebar */
+    #gal-sidebar {
+      width: 220px;
+      flex-shrink: 0;
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+    #gal-sidebar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.1rem .75rem;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    #gal-sidebar-header span {
+      font-size: .68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--muted);
+    }
+    #gal-close-btn {
+      background: none; border: none; cursor: pointer;
+      font-size: 1.1rem; color: var(--muted);
+      width: 28px; height: 28px;
+      display: grid; place-items: center;
+      border-radius: var(--radius);
+      transition: background .12s, color .12s;
+    }
+    #gal-close-btn:hover { background: var(--border); color: var(--ink); }
+    #gal-sidebar-list { list-style: none; padding: .5rem 0; flex: 1; }
+    .gal-cat-btn {
+      display: block;
+      width: 100%;
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      padding: .6rem 1.1rem;
+      font-family: var(--font-sans);
+      font-size: .85rem;
+      color: var(--muted);
+      border-radius: 0;
+      transition: background .12s, color .12s;
+    }
+    .gal-cat-btn:hover { background: var(--tag-bg); color: var(--ink); }
+    .gal-cat-btn.active {
+      background: var(--tag-bg);
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* viewer */
+    #gal-viewer {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      background: var(--surface);
+    }
+    #gal-viewer-top {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0d0d0d;
+      overflow: hidden;
+    }
+    #gal-media-wrap {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      padding: 2.5rem 3.5rem;
+    }
+    #gal-media-wrap img, #gal-media-wrap video {
+      max-width: 100%; max-height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .gal-nav-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(0,0,0,.45); border: 1px solid rgba(255,255,255,.15);
+      color: #fff; width: 44px; height: 44px; border-radius: 8px;
+      display: grid; place-items: center; cursor: pointer; font-size: 1rem;
+      transition: background .15s;
+    }
+    .gal-nav-btn:hover { background: rgba(0,0,0,.7); }
+    #gal-prev-btn { left: 1rem; } #gal-next-btn { right: 1rem; }
+    #gal-viewer-bottom {
+      padding: .85rem 1.25rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-shrink: 0;
+    }
+    #gal-info-title   { font-size: .92rem; font-weight: 600; color: var(--ink); }
+    #gal-info-caption { font-size: .82rem; color: var(--muted); margin-top: .15rem; }
+    #gal-info-count   { font-size: .78rem; color: var(--muted); font-family: monospace; white-space: nowrap; }
+
+    @media (max-width: 600px) {
+      #gal-sidebar { width: 160px; }
+    }
+
+    /* ── PUBLICATIONS ── */
+    .pub-list { display: flex; flex-direction: column; gap: 0; }
+    .pub-item { padding: .9rem 0; border-bottom: 1px solid var(--border); }
+    .pub-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .pub-title-row { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; }
+    .pub-title {
+      font-size: .95rem;
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.45;
+      flex: 1;
+    }
+    .pub-link { font-size: .8rem; color: var(--accent); white-space: nowrap; flex-shrink: 0; }
+    .pub-venue { font-size: .82rem; color: var(--muted); margin-top: .2rem; }
+    .pub-abstract-toggle {
+      background: none; border: none; cursor: pointer;
+      font-size: .76rem; color: var(--muted); padding: .3rem 0 0;
+      font-family: var(--font-sans); letter-spacing: .01em;
+      display: flex; align-items: center; gap: .3rem;
+      transition: color .15s;
+    }
+    .pub-abstract-toggle:hover { color: var(--accent); }
+    .pub-abstract {
+      font-size: .86rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-top: .5rem;
+      display: none;
+    }
+    .pub-abstract.open { display: block; }
+
+    /* ── CONTACT ── */
+    .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: .6rem; }
+    .contact-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: .85rem 1rem;
+    }
+    .c-label { font-size: .68rem; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin-bottom: .3rem; }
+    .c-val   { font-size: .9rem; font-weight: 500; }
+
+
+    @media (max-width: 600px) {
+      main { padding: 2rem 1.25rem 5rem; }
+      #topbar { padding: 0 1.25rem; }
+      .hero-inner { grid-template-columns: 1fr; }
+      .profile-pic { display: none; }
+      .exp-item { grid-template-columns: 1fr; }
+      .exp-date { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+<header id="topbar">
+  <a id="logo" href="#hero"></a>
+  <nav class="topnav">
+    <a href="#skills">Skills</a>
+    <a href="#experience">Experience</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#publications">Publications</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <button id="theme-btn" aria-label="Toggle theme">☾</button>
+</header>
+
+<main>
+
+  <!-- ── HERO ── -->
+  <section id="hero">
+    <div class="hero-inner">
+      <div>
+        <h1 class="hero-name" id="hero-name"></h1>
+        <p class="hero-title" id="hero-title"></p>
+        <p class="hero-bio"   id="hero-bio"></p>
+        <div class="hero-links" id="hero-links"></div>
+      </div>
+      <img class="profile-pic" id="hero-pic" src="" alt="Profile photo" />
+    </div>
+  </section>
+
+  <!-- ── SKILLS ── -->
+  <div class="section" id="skills">
+    <button class="section-toggle" aria-expanded="false" data-target="skills-body">
+      <span class="section-title">Skills</span>
+      <span class="section-icon">✕</span>
+    </button>
+    <div class="section-body collapsed" id="skills-body">
+      <div class="section-body-inner">
+        <div class="skills-grid" id="skills-grid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── EXPERIENCE ── -->
+  <div class="section" id="experience">
+    <button class="section-toggle" aria-expanded="false" data-target="exp-body">
+      <span class="section-title">Experience</span>
+      <span class="section-icon">✕</span>
+    </button>
+    <div class="section-body collapsed" id="exp-body">
+      <div class="section-body-inner">
+        <div class="exp-list" id="exp-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── GALLERY ── -->
+  <div class="section" id="gallery">
+    <button class="section-toggle" aria-expanded="false" data-target="gal-body">
+      <span class="section-title">Gallery</span>
+      <span class="section-icon">✕</span>
+    </button>
+    <div class="section-body collapsed" id="gal-body">
+      <div class="section-body-inner">
+        <ul class="gal-menu" id="gal-menu"></ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PUBLICATIONS ── -->
+  <div class="section" id="publications">
+    <button class="section-toggle" aria-expanded="false" data-target="pub-body">
+      <span class="section-title">Publications</span>
+      <span class="section-icon">✕</span>
+    </button>
+    <div class="section-body collapsed" id="pub-body">
+      <div class="section-body-inner">
+        <div class="pub-list" id="pub-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CONTACT ── -->
+  <div class="section" id="contact">
+    <button class="section-toggle" aria-expanded="false" data-target="contact-body">
+      <span class="section-title">Contact</span>
+      <span class="section-icon">✕</span>
+    </button>
+    <div class="section-body collapsed" id="contact-body">
+      <div class="section-body-inner">
+        <div class="contact-grid" id="contact-grid"></div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- Gallery overlay -->
+<div id="gal-overlay" hidden>
+  <div id="gal-sidebar">
+    <div id="gal-sidebar-header">
+      <span>Gallery</span>
+      <button id="gal-close-btn" aria-label="Close gallery">✕</button>
+    </div>
+    <ul id="gal-sidebar-list"></ul>
+  </div>
+  <div id="gal-viewer">
+    <div id="gal-viewer-top">
+      <div id="gal-media-wrap"></div>
+      <button class="gal-nav-btn" id="gal-prev-btn">❮</button>
+      <button class="gal-nav-btn" id="gal-next-btn">❯</button>
+    </div>
+    <div id="gal-viewer-bottom">
+      <div>
+        <div id="gal-info-title"></div>
+        <div id="gal-info-caption"></div>
+      </div>
+      <div id="gal-info-count"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════════════════════════
+   ██  CONFIG  — edit this block to update the whole site  ████████
+   ══════════════════════════════════════════════════════════════════ */
+const ME = {
+  name:     "[Your Name], Ph.D.",
+  title:    "Physicist · Nanomaterials & Magnetic Particle Imaging",
+  bio:      "I work at the interface of nanomaterials, functional materials, and imaging — engineering magnetic nanoparticles with tailored physical and magnetic properties to enable next-generation MPI. My work spans synthesis, metrology, system validation, and clinical translation.",
+  photo:    "./assets/img/rec.png",
+  email:    "you@example.com",
+  github:   "your-github-username",
+  linkedin: "your-linkedin-handle",
+  scholar:  "https://scholar.google.com/citations?user=tBUcri8AAAAJ",
+};
+
+const SKILLS = [
+  {
+    group: "Microscopy & Characterization",
+    items: ["SEM", "TEM", "AFM", "VSM", "PPMS", "DLS", "XRD"],
+  },
+  {
+    group: "Medical Imaging",
+    items: ["MPI", "X-ray / CT", "Slicer3D", "ImageJ", "Co-registration"],
+  },
+  {
+    group: "Nanoparticle Science",
+    items: ["Thermal decomposition", "Functionalization", "Dispersions", "Wet coating", "Scale-up"],
+  },
+  {
+    group: "Systems Engineering",
+    items: ["V&V protocols", "FMEA", "Calibration", "Root-cause analysis", "SOPs"],
+  },
+  {
+    group: "Electronics",
+    items: ["RF & receive coil tuning", "Oscilloscopes", "Spectrum analyzers"],
+  },
+  {
+    group: "Programming & Analysis",
+    items: ["Python", "Mathematica", "ImageJ macros", "Linux", "Jira"],
+  },
+  {
+    group: "Fabrication",
+    items: ["CAD", "3D printing", "Phantom design"],
+  },
+  {
+    group: "Regulatory & Quality",
+    items: ["QMS", "IRB", "FAT / SAT", "Metrology traceability"],
+  },
+  {
+    group: "Communication",
+    items: ["Technical writing", "Customer training", "Grant support", "4 languages"],
+  },
+];
+
+const EXPERIENCE = [
+  {
+    role:    "Postdoctoral Scholar",
+    org:     "[Institution — placeholder]",
+    date:    "2026 – Present",
+    summary: "Developing novel magnetic nanoparticles to improve spatial resolution in MPI and exploring underlying nanoscale physics.",
+  },
+  {
+    role:    "Senior Applications Engineer",
+    org:     "[Company — placeholder]",
+    date:    "2024 – Present",
+    summary: "Leading validation and applications of the world's first-in-human MPI system; collaborating with MD Anderson, Stanford, and Johns Hopkins on clinical studies.",
+  },
+  {
+    role:    "Applications Support Engineer",
+    org:     "[Company — placeholder]",
+    date:    "2022 – 2024",
+    summary: "Technical support, system bring-up, and calibration for MPI and Magnetic Hyperthermia systems across 16+ global research sites.",
+  },
+  {
+    role:    "AI Trainer — Mathematics / STEM",
+    org:     "[Company — placeholder] · Freelance",
+    date:    "2025",
+    summary: "Evaluated and improved AI-generated mathematical reasoning; designed complex STEM problems for model benchmarking.",
+  },
+  {
+    role:    "Graduate Research Assistant",
+    org:     "[University — placeholder]",
+    date:    "2016 – 2022",
+    summary: "Investigated magnetic nanoparticle self-assembly; developed ImageJ-based quantitative analysis tools for SEM metrology; contributed to peer-reviewed publications.",
+  },
+  {
+    role:    "Research Assistant",
+    org:     "[Lab — placeholder]",
+    date:    "2017 – 2018",
+    summary: "Contributed to high-speed magnetic pattern recording technique for perpendicular media and HDD field simulation for nanoparticle patterning.",
+  },
+  {
+    role:    "Assistant Professor of Physics",
+    org:     "[Institution — placeholder]",
+    date:    "2010 – 2016",
+    summary: "Delivered Classical Mechanics, Quantum Mechanics, and E&M courses; supervised laboratory courses; advised 10 undergraduate thesis projects.",
+  },
+];
+
+const PUBS = [
+  {
+    title:    "On the partial volume effect in magnetic particle imaging",
+    venue:    "Physics in Medicine & Biology, 2025",
+    url:      "https://iopscience.iop.org/article/10.1088/1361-6560/ada417",
+    abstract: "We analyze how finite voxel size causes signal mixing in MPI and quantify resulting biases in resolution and quantitation — mirroring classic PET partial-volume behavior.",
+  },
+  {
+    title:    "A physics-based computational forward model for efficient image reconstruction in magnetic particle imaging",
+    venue:    "IEEE Transactions on Medical Imaging, 2025",
+    url:      "https://ieeexplore.ieee.org/abstract/document/10843268/",
+    abstract: "A calibration-scan-free physics-based MPI reconstruction that scales to high resolution and generalizes across scan geometries.",
+  },
+  {
+    title:    "Preclinical and Clinical-Scale Magnetic Particle Imaging of Natural Killer Cells",
+    venue:    "Molecular Imaging and Biology, 2025",
+    url:      "https://link.springer.com/article/10.1007/s11307-024-01969-z",
+    abstract: "Quantitative MPI tracking of iron-oxide-labeled NK-92 cells in vivo, with feasibility demonstrated on a clinical-scale scanner.",
+  },
+  {
+    title:    "Magnetic particle imaging enables nonradioactive quantitative sentinel lymph node identification",
+    venue:    "Radiology Advances, 2024",
+    url:      "",
+    abstract: "MPI lymphography as a nonradioactive alternative to SLNB, with sensitive node mapping within 1 hour and 4–6 day signal persistence.",
+  },
+  {
+    title:    "Tunability and Ordering in 2D Arrays of Magnetic Nanoparticles Assembled via Extreme Field Gradients",
+    venue:    "Advanced Materials Interfaces, 2022",
+    url:      "https://advanced.onlinelibrary.wiley.com/doi/full/10.1002/admi.202201056",
+    abstract: "Magnetite nanoparticles directed to self-assemble on hard-disk media via nanoscale field gradients, exhibiting hexatic ordering explained by Langevin simulations.",
+  },
+  {
+    title:    "Magnetic-Field-Directed Self-Assembly of Programmable Mesoscale Shapes",
+    venue:    "Advanced Functional Materials, 2016",
+    url:      "https://advanced.onlinelibrary.wiley.com/doi/abs/10.1002/adfm.201504749",
+    abstract: "PMR media templates directing nanoparticle self-assembly into user-designed 2D shapes at single-particle (30 nm) resolution.",
+  },
+  {
+    title:    "Magnetic nanoparticle arrays self-assembled on perpendicular magnetic recording media",
+    venue:    "International Journal of Molecular Sciences, 2015",
+    url:      "",
+    abstract: "Growth kinetics of nanoparticle arrays on magnetic templates; lateral growth precedes stacking with emergent collective magnetic behavior.",
+  },
+];
+
+const GALLERIES = [
+  {
+    title:   "Medical Imaging & 3D Slicer",
+    caption: "MPI, CT co-registration, and 3D Slicer reconstructions.",
+    images:  [
+      { src: "gallery/images/mpi/phantom_1.jpg",           alt: "MPI phantom 1" },
+      { src: "gallery/images/mpi/phantom_2.jpg",           alt: "MPI phantom 2" },
+      { src: "gallery/images/ct_mpi/MAGimageCapture2.gif", alt: "CT+MPI coreg" },
+    ],
+  },
+  {
+    title:   "SEM Imaging",
+    caption: "Scanning Electron Microscopy — SPION morphology. Fe₃O₄; d = 10 ± 1.2 nm. Scale 200 nm.",
+    images:  [
+      { src: "gallery/images/sem/400nm7a.jpg",     alt: "SEM micrograph" },
+      { src: "gallery/images/sem/justcheck.jpg",   alt: "SEM micrograph" },
+      { src: "gallery/images/sem/G6videocalc.mov", alt: "SEM video" },
+    ],
+  },
+  {
+    title:   "TEM Imaging",
+    caption: "Transmission Electron Microscopy — core shell contrast. HRTEM; lattice fringes visible.",
+    images:  [
+      { src: "gallery/images/tem/11.tif", alt: "TEM image" },
+      { src: "gallery/images/tem/15.tif", alt: "TEM image" },
+    ],
+  },
+  {
+    title:   "AFM Imaging",
+    caption: "Atomic Force Microscopy — height map (5×5 µm). Tapping mode; RMS roughness ~1.2 nm.",
+    images:  [
+      { src: "gallery/images/afm/afm_1.jpg", alt: "AFM height map 1" },
+      { src: "gallery/images/afm/afm_2.jpg", alt: "AFM height map 2" },
+    ],
+  },
+  {
+    title:   "Hyperthermia",
+    caption: "Magnetic hyperthermia — thermal map. Power sweep; ΔT vs time; ROI overlay.",
+    images:  [
+      { src: "gallery/images/hyperthermia/therm_1.jpg", alt: "Thermal map 1" },
+      { src: "gallery/images/hyperthermia/therm_2.jpg", alt: "Thermal map 2" },
+    ],
+  },
+];
+/* ══════════════════════════════════════════════════════════════════
+   END CONFIG  ████████████████████████████████████████████████████
+   ══════════════════════════════════════════════════════════════════ */
+
+
+// ── Theme ─────────────────────────────────────────────────────────
+const themeBtn = document.getElementById('theme-btn');
+let theme = localStorage.getItem('theme') || 'light';
+applyTheme(theme);
+themeBtn.addEventListener('click', () => {
+  theme = theme === 'light' ? 'dark' : 'light';
+  applyTheme(theme);
+  localStorage.setItem('theme', theme);
+});
+function applyTheme(t) {
+  document.documentElement.setAttribute('data-theme', t);
+  themeBtn.textContent = t === 'light' ? '☾' : '☀';
+}
+
+// ── Section fold ──────────────────────────────────────────────────
+document.querySelectorAll('.section-toggle').forEach(btn => {
+  const bodyId = btn.dataset.target;
+  const body   = document.getElementById(bodyId);
+  const icon   = btn.querySelector('.section-icon');
+
+  btn.addEventListener('click', () => {
+    const isOpen = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!isOpen));
+    body.classList.toggle('collapsed', isOpen);
+    icon.classList.toggle('open', !isOpen);
+  });
+});
+
+// ── Hero ──────────────────────────────────────────────────────────
+document.getElementById('logo').textContent      = ME.name;
+document.getElementById('hero-name').textContent = ME.name;
+document.getElementById('hero-title').textContent = ME.title;
+document.getElementById('hero-bio').textContent  = ME.bio;
+document.getElementById('hero-pic').src          = ME.photo;
+
+const linksEl = document.getElementById('hero-links');
+[
+  { label: '✉ Email',  href: 'mailto:' + ME.email },
+  { label: 'GitHub',   href: 'https://github.com/' + ME.github },
+  { label: 'LinkedIn', href: 'https://linkedin.com/in/' + ME.linkedin },
+  { label: 'Scholar',  href: ME.scholar },
+].forEach(l => {
+  const a = document.createElement('a');
+  a.className = 'hero-link'; a.href = l.href; a.textContent = l.label;
+  a.target = '_blank'; a.rel = 'noopener';
+  linksEl.appendChild(a);
+});
+
+// ── Skills ────────────────────────────────────────────────────────
+const skillsGrid = document.getElementById('skills-grid');
+SKILLS.forEach(s => {
+  const card = document.createElement('div');
+  card.className = 'skill-card';
+  card.innerHTML = `
+    <div class="skill-group">${s.group}</div>
+    <div class="skill-items">${s.items.join(' · ')}</div>`;
+  skillsGrid.appendChild(card);
+});
+
+// ── Experience ────────────────────────────────────────────────────
+const expListEl = document.getElementById('exp-list');
+EXPERIENCE.forEach(e => {
+  const d = document.createElement('div');
+  d.className = 'exp-item';
+  d.innerHTML = `
+    <div>
+      <div class="exp-role">${e.role}</div>
+      <div class="exp-org">${e.org}</div>
+      <div class="exp-summary">${e.summary}</div>
+    </div>
+    <div class="exp-date">${e.date}</div>`;
+  expListEl.appendChild(d);
+});
+
+// ── Publications ──────────────────────────────────────────────────
+const pubListEl = document.getElementById('pub-list');
+PUBS.forEach(p => {
+  const item = document.createElement('div');
+  item.className = 'pub-item';
+  const linkHtml = p.url
+    ? `<a class="pub-link" href="${p.url}" target="_blank" rel="noopener">↗ link</a>`
+    : '';
+  item.innerHTML = `
+    <div class="pub-title-row">
+      <span class="pub-title">${p.title}</span>
+      ${linkHtml}
+    </div>
+    <div class="pub-venue">${p.venue}</div>
+    <button class="pub-abstract-toggle" aria-expanded="false">+ abstract</button>
+    <div class="pub-abstract">${p.abstract}</div>`;
+
+  const toggle = item.querySelector('.pub-abstract-toggle');
+  const abs    = item.querySelector('.pub-abstract');
+  toggle.addEventListener('click', () => {
+    const open = abs.classList.toggle('open');
+    toggle.textContent = open ? '− abstract' : '+ abstract';
+    toggle.setAttribute('aria-expanded', String(open));
+  });
+
+  pubListEl.appendChild(item);
+});
+
+// ── Contact ───────────────────────────────────────────────────────
+const contactEl = document.getElementById('contact-grid');
+[
+  { label: 'Email',         val: ME.email,    href: 'mailto:' + ME.email },
+  { label: 'GitHub',        val: ME.github,   href: 'https://github.com/' + ME.github },
+  { label: 'LinkedIn',      val: ME.linkedin, href: 'https://linkedin.com/in/' + ME.linkedin },
+  { label: 'Google Scholar',val: 'Profile',   href: ME.scholar },
+].forEach(c => {
+  const d = document.createElement('div');
+  d.className = 'contact-card';
+  d.innerHTML = `
+    <div class="c-label">${c.label}</div>
+    <div class="c-val"><a href="${c.href}" target="_blank" rel="noopener">${c.val}</a></div>`;
+  contactEl.appendChild(d);
+});
+
+// ── Gallery ───────────────────────────────────────────────────────
+const isVideo = s => /\.(mp4|webm|mov)$/i.test(s);
+
+function mkMedia(src, alt) {
+  if (isVideo(src)) {
+    const v = document.createElement('video');
+    Object.assign(v, { muted: true, playsInline: true, loop: true, autoplay: true, src });
+    v.style.cssText = 'max-width:100%;max-height:100%;object-fit:contain';
+    return v;
+  }
+  const img = document.createElement('img');
+  img.src = src; img.alt = alt || '';
+  img.style.cssText = 'max-width:100%;max-height:100%;object-fit:contain';
+  return img;
+}
+
+// Build sidebar category list
+const sidebarList = document.getElementById('gal-sidebar-list');
+GALLERIES.forEach((gal, gi) => {
+  const li  = document.createElement('li');
+  const btn = document.createElement('button');
+  btn.className   = 'gal-cat-btn';
+  btn.textContent = gal.title;
+  btn.dataset.gi  = gi;
+  li.appendChild(btn);
+  sidebarList.appendChild(li);
+});
+
+// Build main-page menu (titles only, no previews)
+const galMenu = document.getElementById('gal-menu');
+GALLERIES.forEach((gal, gi) => {
+  const li  = document.createElement('li');
+  const btn = document.createElement('button');
+  btn.className = 'gal-menu-item';
+  btn.innerHTML = `<span>${gal.title}</span><span class="gal-arrow">→</span>`;
+  btn.addEventListener('click', () => openGallery(gi));
+  li.appendChild(btn);
+  galMenu.appendChild(li);
+});
+
+// Overlay state
+const overlay   = document.getElementById('gal-overlay');
+const mediaWrap = document.getElementById('gal-media-wrap');
+const infoTitle = document.getElementById('gal-info-title');
+const infoCap   = document.getElementById('gal-info-caption');
+const infoCount = document.getElementById('gal-info-count');
+let activeGi = 0, activeIdx = 0;
+
+function renderViewer() {
+  const gal  = GALLERIES[activeGi];
+  const item = gal.images[activeIdx];
+  mediaWrap.innerHTML = '';
+  mediaWrap.appendChild(mkMedia(item.src, item.alt));
+  infoTitle.textContent = gal.title;
+  infoCap.textContent   = gal.caption;
+  infoCount.textContent = `${activeIdx + 1} / ${gal.images.length}`;
+  // highlight active sidebar item
+  document.querySelectorAll('.gal-cat-btn').forEach(b =>
+    b.classList.toggle('active', Number(b.dataset.gi) === activeGi)
+  );
+}
+
+function openGallery(gi) {
+  activeGi  = gi;
+  activeIdx = 0;
+  renderViewer();
+  overlay.hidden = false;
+  document.body.style.overflow = 'hidden';
+}
+
+function closeGallery() {
+  overlay.hidden = true;
+  document.body.style.overflow = '';
+  mediaWrap.innerHTML = '';
+}
+
+function showImg(delta) {
+  const len = GALLERIES[activeGi].images.length;
+  activeIdx = (activeIdx + delta + len) % len;
+  renderViewer();
+}
+
+document.getElementById('gal-close-btn').onclick = closeGallery;
+document.getElementById('gal-prev-btn').onclick  = () => showImg(-1);
+document.getElementById('gal-next-btn').onclick  = () => showImg(+1);
+
+// sidebar clicks switch category
+sidebarList.addEventListener('click', e => {
+  const btn = e.target.closest('.gal-cat-btn');
+  if (!btn) return;
+  activeGi  = Number(btn.dataset.gi);
+  activeIdx = 0;
+  renderViewer();
+});
+
+// keyboard nav
+document.addEventListener('keydown', e => {
+  if (overlay.hidden) return;
+  if (e.key === 'Escape')     closeGallery();
+  if (e.key === 'ArrowRight') showImg(+1);
+  if (e.key === 'ArrowLeft')  showImg(-1);
+});
+</script>
+</body>
+</html>
