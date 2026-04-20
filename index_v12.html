@@ -712,45 +712,54 @@ const PUBS = [
 
 const GALLERIES = [
   {
-    title:   "Medical Imaging & 3D Slicer",
-    caption: "MPI, CT co-registration, and 3D Slicer reconstructions.",
+    title:   "3D Slicer",
+    caption: "MPI, CT co-registration, tumor segmentation, and 3D Slicer reconstructions.",
     images:  [
-      { src: "gallery/images/mpi/phantom_1.jpg",           alt: "MPI phantom 1" },
-      { src: "gallery/images/mpi/phantom_2.jpg",           alt: "MPI phantom 2" },
-      { src: "gallery/images/ct_mpi/MAGimageCapture2.gif", alt: "CT+MPI coreg" },
+      { src: "gallery/images/slicer3d/2024-10-30-Scene.png",         alt: "3D Slicer scene" },
+      { src: "gallery/images/slicer3d/emb_phantom_2.gif",            alt: "Embedded phantom" },
+      { src: "gallery/images/slicer3d/MAGimageCapture2.gif",         alt: "CT+MPI co-registration" },
+      { src: "gallery/images/slicer3d/Tum_segmentation.mp4",         alt: "Tumor segmentation" },
+      { src: "gallery/images/slicer3d/SlicerCapture222.mp4",         alt: "3D Slicer capture" },
+      { src: "gallery/images/slicer3d/SlicerCapture(1).mp4",         alt: "3D Slicer capture 2" },
+      { src: "gallery/images/slicer3d/SlicerCapture_brain.mp4",      alt: "3D Slicer brain capture" },
+      { src: "gallery/images/slicer3d/309240cf90067688650a2ff8.mp4", alt: "MPI reconstruction" },
     ],
   },
   {
-    title:   "SEM Imaging",
-    caption: "Scanning Electron Microscopy — SPION morphology. Fe₃O₄; d = 10 ± 1.2 nm. Scale 200 nm.",
+    title:   "Microscopy",
+    caption: "SEM and TEM imaging of magnetic nanoparticles and nanostructures.",
     images:  [
-      { src: "gallery/images/sem/400nm7a.jpg",     alt: "SEM micrograph" },
-      { src: "gallery/images/sem/justcheck.jpg",   alt: "SEM micrograph" },
-      { src: "gallery/images/sem/G6videocalc.mov", alt: "SEM video" },
+      { src: "gallery/images/microscopy/400nm7.jpg",       alt: "SEM micrograph" },
+      { src: "gallery/images/microscopy/400nm7a.jpg",      alt: "SEM micrograph" },
+      { src: "gallery/images/microscopy/justcheck.jpg",    alt: "SEM micrograph" },
+      { src: "gallery/images/microscopy/400nm7_copy2.png", alt: "SEM micrograph" },
+      { src: "gallery/images/microscopy/TEM.png",          alt: "TEM image" },
+      { src: "gallery/images/microscopy/G6videocalc.mov",  alt: "SEM video" },
     ],
   },
   {
-    title:   "TEM Imaging",
-    caption: "Transmission Electron Microscopy — core shell contrast. HRTEM; lattice fringes visible.",
+    title:   "HDD Write and Read Optimization",
+    caption: "Readback signal analysis, disk drive self-assembly, and magnetic recording optimization.",
     images:  [
-      { src: "gallery/images/tem/11.tif", alt: "TEM image" },
-      { src: "gallery/images/tem/15.tif", alt: "TEM image" },
+      { src: "gallery/images/hdd/readback_confirming.png",   alt: "Readback signal confirmation" },
+      { src: "gallery/images/hdd/Readback_Shape.png",        alt: "Readback shape" },
+      { src: "gallery/images/hdd/ReadBack_Signal.png",       alt: "Readback signal" },
+      { src: "gallery/images/hdd/Screenshot_2026-04-20.png", alt: "HDD analysis" },
+      { src: "gallery/images/hdd/DiskDriveSelfassembly.png", alt: "Disk drive self-assembly" },
+      { src: "gallery/images/hdd/NP_SEM_USC_logo.png",       alt: "NP array on HDD media" },
     ],
   },
   {
-    title:   "AFM Imaging",
-    caption: "Atomic Force Microscopy — height map (5×5 µm). Tapping mode; RMS roughness ~1.2 nm.",
+    title:   "Fabrication",
+    caption: "Nanoparticle fabrication, self-assembly, and optical characterization.",
     images:  [
-      { src: "gallery/images/afm/afm_1.jpg", alt: "AFM height map 1" },
-      { src: "gallery/images/afm/afm_2.jpg", alt: "AFM height map 2" },
-    ],
-  },
-  {
-    title:   "Hyperthermia",
-    caption: "Magnetic hyperthermia — thermal map. Power sweep; ΔT vs time; ROI overlay.",
-    images:  [
-      { src: "gallery/images/hyperthermia/therm_1.jpg", alt: "Thermal map 1" },
-      { src: "gallery/images/hyperthermia/therm_2.jpg", alt: "Thermal map 2" },
+      { src: "gallery/images/fabrication/Optical1.png",               alt: "Optical image 1" },
+      { src: "gallery/images/fabrication/optical2.png",               alt: "Optical image 2" },
+      { src: "gallery/images/fabrication/500nm_to_1000nm_ExpSim.png", alt: "Exp vs sim comparison" },
+      { src: "gallery/images/fabrication/line_spacing_SEM.png",       alt: "Line spacing SEM" },
+      { src: "gallery/images/fabrication/evidence_SEM.png",           alt: "Evidence SEM" },
+      { src: "gallery/images/fabrication/Chaining_SEM.png",           alt: "Chaining SEM" },
+      { src: "gallery/images/fabrication/Long_chain.png",             alt: "Long chain" },
     ],
   },
 ];
@@ -979,6 +988,14 @@ document.addEventListener('keydown', e => {
   if (e.key === 'ArrowRight') showImg(+1);
   if (e.key === 'ArrowLeft')  showImg(-1);
 });
+</script>
+
+<footer style="text-align:center;padding:2rem 1rem;font-size:0.78rem;color:#888;border-top:1px solid #e5e5e3;margin-top:3rem;">
+  © <span id="copy-year"></span> <span id="copy-name"></span>. All rights reserved.
+</footer>
+<script>
+  document.getElementById('copy-year').textContent = new Date().getFullYear();
+  document.getElementById('copy-name').textContent = ME.name;
 </script>
 </body>
 </html>
