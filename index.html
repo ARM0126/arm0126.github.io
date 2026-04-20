@@ -980,5 +980,13 @@ document.addEventListener('keydown', e => {
   if (e.key === 'ArrowLeft')  showImg(-1);
 });
 </script>
+
+<footer style="text-align:center;padding:2rem 1rem;font-size:0.78rem;color:#888;border-top:1px solid #e5e5e3;margin-top:3rem;">
+  © <span id="copy-year"></span> <span id="copy-name"></span>. All rights reserved.
+</footer>
+<script>
+  document.getElementById('copy-year').textContent = new Date().getFullYear();
+  document.getElementById('copy-name').textContent = ME.name;
+</script>
 </body>
 </html>
