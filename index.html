@@ -913,14 +913,14 @@ PUBS.forEach(p => {
       ${linkHtml}
     </div>
     <div class="pub-venue">${p.venue}</div>
-    <button class="pub-abstract-toggle" aria-expanded="false">+ abstract</button>
+    <button class="pub-abstract-toggle" aria-expanded="false">+ Brief summary</button>
     <div class="pub-abstract">${p.abstract}</div>`;
 
   const toggle = item.querySelector('.pub-abstract-toggle');
   const abs    = item.querySelector('.pub-abstract');
   toggle.addEventListener('click', () => {
     const open = abs.classList.toggle('open');
-    toggle.textContent = open ? '− abstract' : '+ abstract';
+    toggle.textContent = open ? '− Brief summary' : '+ abstract';
     toggle.setAttribute('aria-expanded', String(open));
   });
 
