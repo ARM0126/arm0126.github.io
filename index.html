@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ARM · Research Portfolio</title>
+  <title>ARM — Research Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -77,8 +77,7 @@
       text-decoration: none;
     }
     #logo:hover { text-decoration: none; }
-    .topnav { display: flex; gap: .1rem; min-width: 0; overflow-x: auto; scrollbar-width: none; }
-    .topnav::-webkit-scrollbar { display: none; }
+    .topnav { display: flex; gap: .1rem; }
     .topnav a {
       font-size: .8rem;
       font-weight: 500;
@@ -87,7 +86,6 @@
       border-radius: var(--radius);
       text-decoration: none;
       letter-spacing: .01em;
-      white-space: nowrap;
       transition: color .15s, background .15s;
     }
     .topnav a:hover { color: var(--ink); background: var(--border); text-decoration: none; }
@@ -202,32 +200,29 @@
     .section-body.collapsed { display: none; }
     .section-body-inner { padding-bottom: 1.75rem; }
 
-        /* ── SKILLS (ranked, numbered + accent rule) ── */
+    /* ── SKILLS (single-column grouped list) ── */
     .skills-list { display: flex; flex-direction: column; gap: 0; }
-    .skill-row {
-      display: grid;
-      grid-template-columns: 1.8rem 1fr;
-      gap: 0 .75rem;
-      padding: .9rem 0;
+    .skill-group-block {
+      padding: .85rem 0;
       border-bottom: 1px solid var(--border);
-      align-items: start;
     }
-    .skill-row:last-child { border-bottom: none; padding-bottom: 0; }
-    .skill-num {
-      font-family: monospace;
-      font-size: .78rem;
-      color: var(--muted);
-      padding-top: .15rem;
-    }
-    .skill-main { border-left: 2px solid var(--accent); padding-left: .85rem; }
+    .skill-group-block:last-child { border-bottom: none; padding-bottom: 0; }
     .skill-group {
-      font-size: .82rem;
+      font-size: .72rem;
       font-weight: 600;
-      color: var(--ink);
-      margin-bottom: .28rem;
-      letter-spacing: .01em;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--accent);
+      margin-bottom: .45rem;
     }
-    .skill-items { font-size: .89rem; color: var(--sub); line-height: 1.65; }
+    .skill-sublist {
+      list-style: disc;
+      padding-left: 1.2rem;
+      font-size: .9rem;
+      color: var(--sub);
+      line-height: 1.7;
+    }
+    .skill-sublist li { margin: 0; }
 
     /* ── EXPERIENCE ── */
     .exp-list { display: flex; flex-direction: column; gap: 0; }
@@ -450,22 +445,6 @@
     .blog-title { font-size: 1rem; font-weight: 600; margin-bottom: .6rem; }
     .blog-body { font-size: .92rem; line-height: 1.75; color: var(--muted); white-space: pre-wrap; }
 
-    /* ── FOOTER ── */
-    .site-footer {
-      text-align: center;
-      padding: 2rem 1rem;
-      font-size: .78rem;
-      color: var(--muted);
-      border-top: 1px solid var(--border);
-      margin-top: 3rem;
-    }
-
-    @media (max-width: 760px) {
-      #logo { display: none; }
-      #topbar { gap: .75rem; }
-      .topnav { flex: 1; }
-    }
-
     @media (max-width: 600px) {
       main { padding: 2rem 1.25rem 5rem; }
       #topbar { padding: 0 1.25rem; }
@@ -481,13 +460,12 @@
 <header id="topbar">
   <a id="logo" href="#hero"></a>
   <nav class="topnav">
-    <a href="#education">Education</a>
-    <a href="#experience">Experience</a>
     <a href="#skills">Skills</a>
-    <a href="#publications">Publications</a>
+    <a href="#experience">Experience</a>
     <a href="#gallery">Gallery</a>
+    <a href="#publications">Publications</a>
     <a href="#contact">Contact</a>
-    <a href="#news">News</a>
+    <a href="#blog">Blog</a>
   </nav>
   <button id="theme-btn" aria-label="Toggle theme">☾</button>
 </header>
@@ -507,15 +485,15 @@
     </div>
   </section>
 
-  <!-- ── EDUCATION ── -->
-  <div class="section" id="education">
-    <button class="section-toggle" aria-expanded="false" data-target="edu-body">
-      <span class="section-title">Education</span>
+  <!-- ── SKILLS ── -->
+  <div class="section" id="skills">
+    <button class="section-toggle" aria-expanded="false" data-target="skills-body">
+      <span class="section-title">Skills</span>
       <span class="section-icon">✕</span>
     </button>
-    <div class="section-body collapsed" id="edu-body">
+    <div class="section-body collapsed" id="skills-body">
       <div class="section-body-inner">
-        <div class="exp-list" id="edu-list"></div>
+        <div class="skills-list" id="skills-list"></div>
       </div>
     </div>
   </div>
@@ -533,32 +511,6 @@
     </div>
   </div>
 
-  <!-- ── SKILLS ── -->
-  <div class="section" id="skills">
-    <button class="section-toggle" aria-expanded="false" data-target="skills-body">
-      <span class="section-title">Skills</span>
-      <span class="section-icon">✕</span>
-    </button>
-    <div class="section-body collapsed" id="skills-body">
-      <div class="section-body-inner">
-        <div class="skills-list" id="skills-list"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── PUBLICATIONS ── -->
-  <div class="section" id="publications">
-    <button class="section-toggle" aria-expanded="false" data-target="pub-body">
-      <span class="section-title">Selected Publications</span>
-      <span class="section-icon">✕</span>
-    </button>
-    <div class="section-body collapsed" id="pub-body">
-      <div class="section-body-inner">
-        <div class="pub-list" id="pub-list"></div>
-      </div>
-    </div>
-  </div>
-
   <!-- ── GALLERY ── -->
   <div class="section" id="gallery">
     <button class="section-toggle" aria-expanded="false" data-target="gal-body">
@@ -568,6 +520,19 @@
     <div class="section-body collapsed" id="gal-body">
       <div class="section-body-inner">
         <ul class="gal-menu" id="gal-menu"></ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PUBLICATIONS ── -->
+  <div class="section" id="publications">
+    <button class="section-toggle" aria-expanded="false" data-target="pub-body">
+      <span class="section-title">Publications</span>
+      <span class="section-icon">✕</span>
+    </button>
+    <div class="section-body collapsed" id="pub-body">
+      <div class="section-body-inner">
+        <div class="pub-list" id="pub-list"></div>
       </div>
     </div>
   </div>
@@ -585,13 +550,13 @@
     </div>
   </div>
 
-  <!-- ── NEWS ── -->
-  <div class="section" id="news">
-    <button class="section-toggle" aria-expanded="false" data-target="news-body">
-      <span class="section-title">News</span>
+  <!-- ── BLOG ── -->
+  <div class="section" id="blog">
+    <button class="section-toggle" aria-expanded="false" data-target="blog-body">
+      <span class="section-title">Blog</span>
       <span class="section-icon">✕</span>
     </button>
-    <div class="section-body collapsed" id="news-body">
+    <div class="section-body collapsed" id="blog-body">
       <div class="section-body-inner">
         <div class="blog-feed">
 
@@ -642,158 +607,108 @@
 
 <script>
 /* ══════════════════════════════════════════════════════════════════
-   ██  CONFIG: edit this block to update the whole site  ████████
+   ██  CONFIG  — edit this block to update the whole site  ████████
    ══════════════════════════════════════════════════════════════════ */
 const ME = {
   name:     "NAME LASTNAME",
-  title:    "Physicist · Magnetic Materials, Nanofabrication, and Imaging Systems",
-  bio:      "Physicist working with magnetic nanomaterials, from making and measuring them to building and qualifying the instruments that use them. My work has covered nanoscale patterning and metrology on magnetic recording media, three years of industry engineering on magnetic particle imaging systems, and current postdoctoral research on magnetic nanoparticles at UC Berkeley.",
-  photo:    "./assets/img/rec.png",
+  title:    "Physicist · Nanomaterials & Medical Imaging",
+  bio:      "I work at the interface of nanomaterials, functional materials, and imaging, engineering magnetic nanoparticles with tailored physical and magnetic properties to enable next-generation high resolution medical imaging. My work spans synthesis, metrology, system validation, and clinical translation.",
+  photo:    "./assets/img/recic.png",
   email:    "email",
   github:   "ARM0126",
   linkedin: "namelink/",
   scholar:  "https://scholar.google.com/ci",
 };
 
-const EDUCATION = [
-  {
-    degree: "Ph.D. Physics",
-    school: "University of South Carolina",
-    date:   "2022",
-    note:   "Magnetic Field Directed Self-Assembly of Colloidal Nanoparticles Via Extreme Field Gradients of Magnetic Recording Media", 
-  },
-  {
-    degree: "M.S. Physics",
-    school: "University of South Carolina",
-    date:   "2014",
-    note:   "Physical and magnetic properties of magnetic nanoparticle arrays",
-  },
-  {
-    degree: "B.S. Mathematics",
-    school: "[Institution]",
-    date:   "2008",
-    note:   "",
-  },
-];
-
 const SKILLS = [
   {
-    group: "Magnetic Materials & Recording",
-    items: ["PMR write heads and thin-film media", "Magnetoresistive readback", "Field-directed self-assembly", "Nanoparticle synthesis and functionalization", "Dispersions and wet coating"],
+    group: "Microscopy & Characterization",
+    items: ["SEM, TEM, AFM", "VSM, PPMS", "DLS, XRD"],
   },
   {
-    group: "Nanofabrication & Process",
-    items: ["Reactive ion etching (selective removal)", "Spin and stir coating", "NanoFrazor thermal and optical lithography", "Reactor process control (PID, mass flow controllers)"],
+    group: "Medical Imaging",
+    items: ["MPI, X-ray / CT", "Slicer3D, co-registration", "Segmentation"],
   },
   {
-    group: "Metrology & Characterization",
-    items: ["SEM, TEM, AFM", "VSM, SQUID, PPMS, MOKE", "DLS, ICP-OES", "Critical dimension and line-edge roughness analysis"],
+    group: "Image Analysis",
+    items: ["Slicer3D, ImageJ", "Co-registration", "Python"],
   },
   {
-    group: "Imaging & Image Analysis",
-    items: ["MPI, CT", "3D Slicer: DICOM handling, segmentation of organs, tumors, and phantoms, co-registration, volume rendering, ROI quantification", "Python scripting and extensions in Slicer", "ImageJ/Fiji (DICOM automation, custom colorbars), SimpleITK, pydicom, ITK-SNAP, NIfTI"],
+    group: "Nanoparticle Science",
+    items: ["Thermal decomposition, functionalization", "Dispersions, wet coating", "Scale-up"],
   },
   {
-    group: "Electronics & Instrumentation",
-    items: ["RF and receive-coil tuning, impedance matching", "Oscilloscopes, spectrum analyzers", "Motion control", "Custom test hardware"],
+    group: "Systems Engineering",
+    items: ["V&V protocols, FMEA", "Calibration, root-cause analysis", "SOPs"],
   },
   {
-    group: "Modeling & Simulation",
-    items: ["ANSYS Maxwell FEA", "Analytical magnetic field modeling"],
+    group: "Fabrication",
+    items: ["CAD, 3D printing", "Phantom design"],
   },
   {
-    group: "Systems Engineering & Quality",
-    items: ["V&V, calibration, root-cause analysis, SOPs", "QMS, IRB", "Polarion PLM, traceability"],
+    group: "Electronics",
+    items: ["RF & receive coil tuning", "Oscilloscopes, spectrum analyzers"],
   },
   {
-    group: "Programming & Automation",
-    items: ["Python, Mathematica", "LabVIEW", "ImageJ macros"],
+    group: "Programming & Analysis",
+    items: ["Python, Mathematica", "ImageJ macros", "Linux, Jira"],
   },
   {
-    group: "Mechanical Design & Prototyping",
-    items: ["CAD, 3D printing", "Phantom and fixture design"],
-  },
-  {
-    group: "AI Evaluation",
-    items: ["RLHF", "Adversarial STEM problem design", "Hallucination identification"],
+    group: "Regulatory & Quality",
+    items: ["QMS, IRB", "FAT / SAT", "Metrology traceability"],
   },
   {
     group: "Communication",
-    items: ["Technical writing", "Customer training, grant writing", "Four languages"],
+    items: ["Technical writing", "Customer training, grant support", "4 languages"],
   },
 ];
 
 const EXPERIENCE = [
   {
     role:    "Postdoctoral Scholar",
-    org:     "University of California, Berkeley",
-    date:    "Jan 2026 – Present",
-    summary: "Developing magnetic nanoparticles to improve spatial resolution in magnetic particle imaging and studying the underlying nanoscale physics. Improved recovered yield of a pressurized synthesis reactor by about 35% through root-cause analysis and control-loop tuning. Mentor undergraduate and graduate researchers.",
+    org:     "University of California - Berkeley",
+    date:    "2026 – Present",
+    summary: "Developing novel magnetic nanoparticles to improve spatial resolution in MPI and exploring underlying nanoscale physics.",
   },
   {
     role:    "Senior Applications Engineer",
     org:     "Magnetic Insight Inc.",
-    date:    "Mar 2024 – Dec 2025",
-    summary: "Subject matter expert supporting validation and applications of the first MPI system used in human studies, including the first MPI image of a human head. Collaborated on clinical studies with UC Berkeley, MD Anderson, Stanford, and Johns Hopkins. Led nanoparticle development, managed in Polarion PLM with traceability for quality.",
+    date:    "2024 – Present",
+    summary: "Subject matter expert, supporting validation and applications of the world's first-in-human MPI system and first-ever MPI image of human head. Collaborating with major institiutions and hospitals such as: UC Berkeley, MD Anderson, Stanford, and Johns Hopkins on clinical studies. ",
   },
   {
     role:    "Applications Support Engineer",
     org:     "Magnetic Insight Inc.",
-    date:    "Nov 2022 – Mar 2024",
-    summary: "Installed, calibrated, and validated MPI and magnetic hyperthermia systems for customers worldwide. Provided technical support, system bring-up, and sales support.",
+    date:    "2022 – 2024",
+    summary: "Technical support, sales, system bring-up, calibration, installation, verification and validation, for MPI and Magnetic Hyperthermia systems globally",
   },
   {
-    role:    "AI Model Evaluator and Trainer, STEM",
-    org:     "Snorkel AI · Handshake AI · Freelance",
-    date:    "Jan 2025 – May 2026",
-    summary: "Evaluated and improved model reasoning in physics and mathematics, designed adversarial STEM problems for benchmarking, and identified hallucinations in model output (RLHF).",
+    role:    "AI Trainer — Mathematics / STEM",
+    org:     "Snorkel AI · Freelance",
+    date:    "2025",
+    summary: "Evaluated and improved AI-generated mathematical reasoning; designed complex STEM problems for model benchmarking.",
   },
   {
     role:    "Graduate Research Assistant",
-    org:     "Smart State Center for Experimental Nanoscale Physics, University of South Carolina",
-    date:    "Dec 2016 – Nov 2022",
-    summary: "Studied magnetic-field-directed self-assembly of nanoparticles on magnetic recording media, using a recording head to write field patterns that template diffraction gratings with long-range order and sub-200 nm control and resolution. Built quantitative image analysis tools for SEM images.",
+    org:     "Smart State Center for Experimental Nanoscale Physics",
+    date:    "2016 – 2022",
+   summary: "Investigated magnetic nanoparticle self-assembly; developed a novel method to fabricate diffraction grating with high crystalinity and sub 100 nm resolution. Developed quantitative image analysis tools for Electron Microscopy Images",
   },
   {
     role:    "Researcher",
-    org:     "MagAssemble LLC (now Thorlabs)",
-    date:    "May 2017 – Dec 2018",
-    summary: "Contributed to high-speed magnetic pattern recording on perpendicular media. Stiffened the recording-head suspension, raising patterning speed about 5x, and ran recording-head field simulations to guide nanoparticle patterning.",
+    org:     "MagAssemble LLC",
+    date:    "2017 – 2018",
+    summary: "Contributed to high-speed magnetic pattern recording techniques for perpendicular media and HDD field simulation for nanoparticle patterning.",
   },
   {
     role:    "Assistant Professor of Physics",
-    org:     "Herat University, Department of Mathematics and Physics",
-    date:    "Mar 2010 – Jan 2016",
-    summary: "Taught classical mechanics, quantum mechanics, and electromagnetism; supervised physics laboratories; advised undergraduate thesis projects.",
+    org:     "Herat University - Department of Mathematics and Physics",
+    date:    "2010 – 2016",
+    summary: "Delivered lectures in: Classical Mechanics, Quantum Mechanics, and E&M courses; supervised physics laboratories; advised undergraduate thesis projects.",
   },
 ];
 
 const PUBS = [
-
-  {
-    title:    "Magnetic nanoparticle arrays self-assembled on perpendicular magnetic recording media",
-    venue:    "International Journal of Molecular Sciences, 2015",
-    url:      "https://doi.org/10.3390/ijms160819769",
-    abstract: "Growth kinetics of nanoparticle arrays on magnetic templates; lateral growth precedes stacking with emergent collective magnetic behavior.",
-  },
-  {
-    title:    "Magnetic-Field-Directed Self-Assembly of Programmable Mesoscale Shapes",
-    venue:    "Advanced Functional Materials, 2016",
-    url:      "https://advanced.onlinelibrary.wiley.com/doi/abs/10.1002/adfm.201504749",
-    abstract: "PMR media templates directing nanoparticle self-assembly into user-designed 2D shapes at single-particle (30 nm) resolution.",
-  },
-  {
-    title:    "Tunability and Ordering in 2D Arrays of Magnetic Nanoparticles Assembled via Extreme Field Gradients",
-    venue:    "Advanced Materials Interfaces, 2022",
-    url:      "https://advanced.onlinelibrary.wiley.com/doi/full/10.1002/admi.202201056",
-    abstract: "Magnetite nanoparticles directed to self-assemble on hard-disk media via nanoscale field gradients, exhibiting hexatic ordering explained by Langevin simulations.",
-  },
-  {
-    title:    "A physics-based computational forward model for efficient image reconstruction in magnetic particle imaging",
-    venue:    "IEEE Transactions on Medical Imaging, 2025",
-    url:      "https://ieeexplore.ieee.org/abstract/document/10843268/",
-    abstract: "A calibration-scan-free physics-based MPI reconstruction that scales to high resolution and generalizes across scan geometries.",
-  },
   {
     title:    "Magnetic Particle Imaging in Human Subjects",
     venue:    "Pre-print Research Square, 2026",
@@ -802,7 +717,7 @@ const PUBS = [
   },
    {
     title:    "Nanoparticle retention enables non-invasive detection of metastases by magnetic particle imaging in murine breast cancer models",
-    venue:    "Theranostics, 2026",
+    venue:    "PTheranostics, 2026",
     url:      "https://pmc.ncbi.nlm.nih.gov/articles/PMC12712802/",
     abstract: "Early detection of metastatic disease improves cancer survival, yet existing modalities are limited in their detection capabilities. We propose that magnetic particle imaging (MPI), an emerging technology, can be used for early detection of primary tumors and metastases. MPI detects minute quantities of magnetic particles that act as “cold tracers” which accumulate in areas of high immune activity.",
   },
@@ -810,20 +725,44 @@ const PUBS = [
     title:    "On the partial volume effect in magnetic particle imaging",
     venue:    "Physics in Medicine & Biology, 2025",
     url:      "https://iopscience.iop.org/article/10.1088/1361-6560/ada417",
-    abstract: "We analyze how finite voxel size causes signal mixing in MPI and quantify resulting biases in resolution and quantitation, mirroring classic PET partial-volume behavior.",
+    abstract: "We analyze how finite voxel size causes signal mixing in MPI and quantify resulting biases in resolution and quantitation — mirroring classic PET partial-volume behavior.",
+  },
+  {
+    title:    "A physics-based computational forward model for efficient image reconstruction in magnetic particle imaging",
+    venue:    "IEEE Transactions on Medical Imaging, 2025",
+    url:      "https://ieeexplore.ieee.org/abstract/document/10843268/",
+    abstract: "A calibration-scan-free physics-based MPI reconstruction that scales to high resolution and generalizes across scan geometries.",
   },
   {
     title:    "Preclinical and Clinical-Scale Magnetic Particle Imaging of Natural Killer Cells",
     venue:    "Molecular Imaging and Biology, 2025",
-    url:      "https://link.springer.com/article/10.1007/s11307-024-01969-z",    abstract: "Quantitative MPI tracking of iron-oxide-labeled NK-92 cells in vivo, with feasibility demonstrated on a clinical-scale scanner.",
+    url:      "https://link.springer.com/article/10.1007/s11307-024-01969-z",
+    abstract: "Quantitative MPI tracking of iron-oxide-labeled NK-92 cells in vivo, with feasibility demonstrated on a clinical-scale scanner.",
   },
   {
     title:    "Magnetic particle imaging enables nonradioactive quantitative sentinel lymph node identification",
     venue:    "Radiology Advances, 2024",
-    url:      "link",
+    url:      "",
     abstract: "MPI lymphography as a nonradioactive alternative to SLNB, with sensitive node mapping within 1 hour and 4–6 day signal persistence.",
   },
-
+  {
+    title:    "Tunability and Ordering in 2D Arrays of Magnetic Nanoparticles Assembled via Extreme Field Gradients",
+    venue:    "Advanced Materials Interfaces, 2022",
+    url:      "https://advanced.onlinelibrary.wiley.com/doi/full/10.1002/admi.202201056",
+    abstract: "Magnetite nanoparticles directed to self-assemble on hard-disk media via nanoscale field gradients, exhibiting hexatic ordering explained by Langevin simulations.",
+  },
+  {
+    title:    "Magnetic-Field-Directed Self-Assembly of Programmable Mesoscale Shapes",
+    venue:    "Advanced Functional Materials, 2016",
+    url:      "https://advanced.onlinelibrary.wiley.com/doi/abs/10.1002/adfm.201504749",
+    abstract: "PMR media templates directing nanoparticle self-assembly into user-designed 2D shapes at single-particle (30 nm) resolution.",
+  },
+  {
+    title:    "Magnetic nanoparticle arrays self-assembled on perpendicular magnetic recording media",
+    venue:    "International Journal of Molecular Sciences, 2015",
+    url:      "https://doi.org/10.3390/ijms160819769",
+    abstract: "Growth kinetics of nanoparticle arrays on magnetic templates; lateral growth precedes stacking with emergent collective magnetic behavior.",
+  },
 ];
 
 const GALLERIES = [
@@ -868,15 +807,15 @@ const GALLERIES = [
       { src: "gallery/images/Electron%20microscopy%20and%20AFM/400nm7_c2.png",      alt: "SEM micrograph" },
       { src: "gallery/images/Electron%20microscopy%20and%20AFM/TEM.png",          alt: "TEM image" },
       { src: "gallery/images/Electron%20microscopy%20and%20AFM/TEM1.png",         alt: "TEM image" },
-      { src: "gallery/images/Electron%20microscopy%20and%20AFM/SEM1.png",         alt: "SEM image" },
-      { src: "gallery/images/Electron%20microscopy%20and%20AFM/SEM2.png",         alt: "SEM image" },
+      { src: "gallery/images/Electron%20microscopy%20and%20AFM/SEM1.png",         alt: "TEM image" },
+      { src: "gallery/images/Electron%20microscopy%20and%20AFM/SEM2.png",         alt: "TEM image" },
       { src: "gallery/images/Electron%20microscopy%20and%20AFM/AFM1.png",         alt: "AFM image 1" },
       { src: "gallery/images/Electron%20microscopy%20and%20AFM/AFM2.png",         alt: "AFM image 2" },
       { src: "gallery/images/Electron%20microscopy%20and%20AFM/AFM3.png",         alt: "AFM image 3" },
       { src: "gallery/images/Electron%20microscopy%20and%20AFM/AFM4.png",         alt: "AFM image 4" },
       { src: "gallery/images/Electron%20microscopy%20and%20AFM/AFM5.png",         alt: "AFM image 5" },
       { src: "gallery/images/Electron%20microscopy%20and%20AFM/AFM6.png",         alt: "AFM image 6" },
-      { src: "gallery/images/Electron%20microscopy%20and%20AFM/G6videocalc.mov",  alt: "SEM ordering analysis video" },
+      { src: "gallery/images/Electron%20microscopy%20and%20AFM/G6videocalc.mov",  alt: "SEM video" },
     ],
   },
 ];
@@ -887,14 +826,12 @@ const GALLERIES = [
 
 // ── Theme ─────────────────────────────────────────────────────────
 const themeBtn = document.getElementById('theme-btn');
-let theme = null;
-try { theme = localStorage.getItem('theme'); } catch (e) {}
-if (!theme) theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+let theme = localStorage.getItem('theme') || 'light';
 applyTheme(theme);
 themeBtn.addEventListener('click', () => {
   theme = theme === 'light' ? 'dark' : 'light';
   applyTheme(theme);
-  try { localStorage.setItem('theme', theme); } catch (e) {}
+  localStorage.setItem('theme', theme);
 });
 function applyTheme(t) {
   document.documentElement.setAttribute('data-theme', t);
@@ -935,34 +872,16 @@ const linksEl = document.getElementById('hero-links');
   linksEl.appendChild(a);
 });
 
-// ── Skills (ranked, numbered + accent rule) ─────────────────────
+// ── Skills (single-column grouped list with sub-bullets) ──────────
 const skillsListEl = document.getElementById('skills-list');
-SKILLS.forEach((s, i) => {
-  const row = document.createElement('div');
-  row.className = 'skill-row';
-  const num = String(i + 1).padStart(2, '0');
-  row.innerHTML = `
-    <div class="skill-num">${num}</div>
-    <div class="skill-main">
-      <div class="skill-group">${s.group}</div>
-      <div class="skill-items">${s.items.join(' · ')}</div>
-    </div>`;
-  skillsListEl.appendChild(row);
-});
-
-// ── Education ─────────────────────────────────────────────────────
-const eduListEl = document.getElementById('edu-list');
-EDUCATION.forEach(e => {
-  const d = document.createElement('div');
-  d.className = 'exp-item';
-  d.innerHTML = `
-    <div>
-      <div class="exp-role">${e.degree}</div>
-      <div class="exp-org">${e.school}</div>
-      ${e.note ? `<div class="exp-summary">${e.note}</div>` : ''}
-    </div>
-    <div class="exp-date">${e.date}</div>`;
-  eduListEl.appendChild(d);
+SKILLS.forEach(s => {
+  const block = document.createElement('div');
+  block.className = 'skill-group-block';
+  const items = s.items.map(i => `<li>${i}</li>`).join('');
+  block.innerHTML = `
+    <div class="skill-group">${s.group}</div>
+    <ul class="skill-sublist">${items}</ul>`;
+  skillsListEl.appendChild(block);
 });
 
 // ── Experience ────────────────────────────────────────────────────
@@ -1128,7 +1047,7 @@ document.addEventListener('keydown', e => {
 });
 </script>
 
-<footer class="site-footer">
+<footer style="text-align:center;padding:2rem 1rem;font-size:0.78rem;color:#888;border-top:1px solid #e5e5e3;margin-top:3rem;">
   © <span id="copy-year"></span> <span id="copy-name"></span>. All rights reserved.
 </footer>
 <script>
