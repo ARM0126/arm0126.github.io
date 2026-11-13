@@ -252,6 +252,8 @@
       margin-bottom: .35rem;
     }
     .exp-summary { font-size: .88rem; color: var(--muted); line-height: 1.6; }
+    .exp-bullets { list-style: disc; padding-left: 1.1rem; font-size: .88rem; color: var(--muted); line-height: 1.6; }
+    .exp-bullets li + li { margin-top: .25rem; }
     .exp-date {
       font-size: .78rem;
       color: var(--muted);
@@ -651,7 +653,7 @@ const ME = {
   photo:    "./assets/img/rec.png",
   email:    "email",
   github:   "ARM0126",
-  linkedin: "https://www.linkedin.com/in/armohtasebzadeh/",
+  linkedin: "armohtasebzadeh/",
   scholar:  "https://scholar.google.com/citations?user=tBUcri8AAAAJ&hl=en",
 };
 
@@ -670,7 +672,7 @@ const EDUCATION = [
   },
   {
     degree: "B.S. Mathematics",
-    school: "[Institution]",
+    school: "Herat University",
     date:   "2008",
   },
 ];
@@ -728,43 +730,76 @@ const EXPERIENCE = [
     role:    "Postdoctoral Scholar",
     org:     "University of California, Berkeley",
     date:    "Jan 2026 – Present",
-    summary: "Developing magnetic nanoparticles to improve spatial resolution in magnetic particle imaging and studying the underlying nanoscale physics. Improved recovered yield of a pressurized synthesis reactor by about 35% through root-cause analysis and control-loop tuning. Mentor undergraduate and graduate researchers.",
+    summary: [
+      "Develop magnetic nanoparticles for magnetic particle imaging, improving spatial resolution 20-fold over the industry standard",
+      "Built the group's materials lab from scratch, including equipment selection, workflows, safety planning, and SOPs",
+      "Raised recovered yield of a pressurized synthesis reactor by about 35% through root-cause analysis and control-loop tuning",
+      "Mentor 8 undergraduates, 2 graduate researchers, and a visiting PhD scholar",
+    ],
   },
   {
     role:    "Senior Applications Engineer",
     org:     "Magnetic Insight Inc.",
     date:    "Mar 2024 – Dec 2025",
-    summary: "Subject matter expert supporting validation and applications of the first MPI system used in human studies, including the first MPI image of a human head. Collaborated on clinical studies with UC Berkeley, MD Anderson, Stanford, and Johns Hopkins. Led nanoparticle development, managed in Polarion PLM with traceability for quality.",
+    summary: [
+      "Supported validation and applications of the first MPI system used in human studies, including the first MPI image of a human head",
+      "Collaborated on clinical studies with UC Berkeley, MD Anderson, Stanford, and Johns Hopkins",
+      "Quantified and characterized imaging data in 3D Slicer, including CT co-registration and segmentation",
+      "Led nanoparticle development for the platform, tracked in Polarion PLM with traceability for quality",
+      "Characterized hardware across three product platforms: RF tuning and impedance matching, receive-coil qualification, motion control, and power distribution",
+      "Recovered out-of-spec systems ahead of shipment, improving sensitivity to 20 ng of iron",
+    ],
   },
   {
     role:    "Applications Support Engineer",
     org:     "Magnetic Insight Inc.",
     date:    "Nov 2022 – Mar 2024",
-    summary: "Installed, calibrated, and validated MPI and magnetic hyperthermia systems for customers worldwide. Provided technical support, system bring-up, and sales support.",
-  },
-  {
-    role:    "AI Model Evaluator and Trainer, STEM",
-    org:     "Snorkel AI · Handshake AI · Freelance",
-    date:    "Jan 2025 – May 2026",
-    summary: "Evaluated and improved model reasoning in physics and mathematics, designed adversarial STEM problems for benchmarking, and identified hallucinations in model output (RLHF).",
+    summary: [
+      "Installed, calibrated, and validated MPI and magnetic hyperthermia systems for customers at 16+ research institutions worldwide",
+      "Handled system bring-up, troubleshooting, and customer training",
+      "Provided technical support to sales and selected vendors and suppliers",
+    ],
   },
   {
     role:    "Graduate Research Assistant",
     org:     "Smart State Center for Experimental Nanoscale Physics, University of South Carolina",
     date:    "Dec 2016 – Nov 2022",
-    summary: "Studied magnetic-field-directed self-assembly of nanoparticles on magnetic recording media, using a recording head to write field patterns that template diffraction gratings with long-range order and sub-200 nm control and resolution. Built quantitative image analysis tools for SEM images.",
+    summary: [
+      "Developed a magnetic-field-directed self-assembly method using commercial recording heads and perpendicular media as a nanofabrication platform, patterning nanoparticle diffraction gratings with long-range order and sub-200 nm control",
+      "Used the same platform as a new method to characterize nanoparticles at the nanoscale under extreme field gradients (50 to 100 MT/m)",
+      "Modeled the media's stray fields analytically, including the soft-underlayer contribution, and characterized magnetic media with VSM, PPMS, and MOKE",
+      "Built automated image analysis extracting critical dimension and line-edge roughness from SEM images, and a laser-diffraction fluid cell for in-situ process monitoring",
+    ],
   },
   {
     role:    "Researcher",
     org:     "MagAssemble LLC (now Thorlabs)",
     date:    "May 2017 – Dec 2018",
-    summary: "Contributed to high-speed magnetic pattern recording on perpendicular media. Stiffened the recording-head suspension, raising patterning speed about 5x, and ran recording-head field simulations to guide nanoparticle patterning.",
+    summary: [
+      "Contributed to commercializing the recording-head self-assembly technology",
+      "Stiffened the recording-head suspension, raising patterning speed about 5x (0.2 to 1 mm/s)",
+      "[Designed / built] an ESD protection circuit for the recording head",
+      "Ran write-head field simulations to guide pattern design",
+    ],
   },
   {
     role:    "Assistant Professor of Physics",
     org:     "Herat University, Department of Mathematics and Physics",
     date:    "Mar 2010 – Jan 2016",
-    summary: "Taught classical mechanics, quantum mechanics, and electromagnetism; supervised physics laboratories; advised undergraduate thesis projects.",
+    summary: [
+      "Taught classical mechanics, quantum mechanics, and electromagnetism",
+      "Supervised physics teaching laboratories and advised undergraduate thesis projects",
+    ],
+  },
+  {
+    role:    "AI Model Evaluator and Trainer, STEM (Freelance)",
+    org:     "Snorkel AI · Handshake AI",
+    date:    "Jan 2025 – Present",
+    summary: [
+      "Evaluated physics and mathematics reasoning in large language models",
+      "Used prompt engineering to write adversarial STEM problems that stumped leading models",
+      "Identified hallucinations and reasoning errors and wrote corrective feedback for RLHF training",
+    ],
   },
 ];
 
@@ -970,11 +1005,14 @@ const expListEl = document.getElementById('exp-list');
 EXPERIENCE.forEach(e => {
   const d = document.createElement('div');
   d.className = 'exp-item';
+  const body = Array.isArray(e.summary)
+    ? `<ul class="exp-bullets">${e.summary.map(b => `<li>${b}</li>`).join('')}</ul>`
+    : `<div class="exp-summary">${e.summary}</div>`;
   d.innerHTML = `
     <div>
       <div class="exp-role">${e.role}</div>
       <div class="exp-org">${e.org}</div>
-      <div class="exp-summary">${e.summary}</div>
+      ${body}
     </div>
     <div class="exp-date">${e.date}</div>`;
   expListEl.appendChild(d);
