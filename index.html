@@ -202,29 +202,32 @@
     .section-body.collapsed { display: none; }
     .section-body-inner { padding-bottom: 1.75rem; }
 
-    /* ── SKILLS (single-column grouped list) ── */
+        /* ── SKILLS (ranked, numbered + accent rule) ── */
     .skills-list { display: flex; flex-direction: column; gap: 0; }
-    .skill-group-block {
-      padding: .85rem 0;
+    .skill-row {
+      display: grid;
+      grid-template-columns: 1.8rem 1fr;
+      gap: 0 .75rem;
+      padding: .9rem 0;
       border-bottom: 1px solid var(--border);
+      align-items: start;
     }
-    .skill-group-block:last-child { border-bottom: none; padding-bottom: 0; }
+    .skill-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .skill-num {
+      font-family: monospace;
+      font-size: .78rem;
+      color: var(--muted);
+      padding-top: .15rem;
+    }
+    .skill-main { border-left: 2px solid var(--accent); padding-left: .85rem; }
     .skill-group {
-      font-size: .72rem;
+      font-size: .82rem;
       font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: .1em;
-      color: var(--accent);
-      margin-bottom: .45rem;
+      color: var(--ink);
+      margin-bottom: .28rem;
+      letter-spacing: .01em;
     }
-    .skill-sublist {
-      list-style: disc;
-      padding-left: 1.2rem;
-      font-size: .9rem;
-      color: var(--sub);
-      line-height: 1.7;
-    }
-    .skill-sublist li { margin: 0; }
+    .skill-items { font-size: .89rem; color: var(--sub); line-height: 1.65; }
 
     /* ── EXPERIENCE ── */
     .exp-list { display: flex; flex-direction: column; gap: 0; }
@@ -661,9 +664,9 @@ const EDUCATION = [
   },
   {
     degree: "M.S. Physics",
-    school: "[Institution]",
+    school: "University of South Carolina",
     date:   "2014",
-    note:   "",
+    note:   "Physical and magnetic properties of magnetic nanoparticle arrays",
   },
   {
     degree: "B.S. Mathematics",
@@ -687,28 +690,28 @@ const SKILLS = [
     items: ["SEM, TEM, AFM", "VSM, SQUID, PPMS, MOKE", "DLS, ICP-OES", "Critical dimension and line-edge roughness analysis"],
   },
   {
-    group: "Electronics & Instrumentation",
-    items: ["RF and receive-coil tuning, impedance matching", "Oscilloscopes, spectrum analyzers", "Motion control", "Custom test hardware"],
+    group: "Imaging & Image Analysis",
+    items: ["MPI, CT", "3D Slicer: DICOM handling, segmentation of organs, tumors, and phantoms, co-registration, volume rendering, ROI quantification", "Python scripting and extensions in Slicer", "ImageJ/Fiji (DICOM automation, custom colorbars), SimpleITK, pydicom, ITK-SNAP, NIfTI"],
   },
   {
-    group: "Systems Engineering & Quality",
-    items: ["V&V, calibration, root-cause analysis, SOPs", "QMS, IRB", "Polarion PLM, traceability"],
+    group: "Electronics & Instrumentation",
+    items: ["RF and receive-coil tuning, impedance matching", "Oscilloscopes, spectrum analyzers", "Motion control", "Custom test hardware"],
   },
   {
     group: "Modeling & Simulation",
     items: ["ANSYS Maxwell FEA", "Analytical magnetic field modeling"],
   },
   {
-    group: "Mechanical Design & Prototyping",
-    items: ["CAD, 3D printing", "Phantom and fixture design"],
-  },
-  {
-    group: "Imaging & Image Analysis",
-    items: ["MPI, CT", "Co-registration and segmentation (3D Slicer)", "Quantitative image analysis pipelines"],
+    group: "Systems Engineering & Quality",
+    items: ["V&V, calibration, root-cause analysis, SOPs", "QMS, IRB", "Polarion PLM, traceability"],
   },
   {
     group: "Programming & Automation",
     items: ["Python, Mathematica", "LabVIEW", "ImageJ macros"],
+  },
+  {
+    group: "Mechanical Design & Prototyping",
+    items: ["CAD, 3D printing", "Phantom and fixture design"],
   },
   {
     group: "AI Evaluation",
@@ -932,16 +935,19 @@ const linksEl = document.getElementById('hero-links');
   linksEl.appendChild(a);
 });
 
-// ── Skills (single-column grouped list with sub-bullets) ──────────
+// ── Skills (ranked, numbered + accent rule) ─────────────────────
 const skillsListEl = document.getElementById('skills-list');
-SKILLS.forEach(s => {
-  const block = document.createElement('div');
-  block.className = 'skill-group-block';
-  const items = s.items.map(i => `<li>${i}</li>`).join('');
-  block.innerHTML = `
-    <div class="skill-group">${s.group}</div>
-    <ul class="skill-sublist">${items}</ul>`;
-  skillsListEl.appendChild(block);
+SKILLS.forEach((s, i) => {
+  const row = document.createElement('div');
+  row.className = 'skill-row';
+  const num = String(i + 1).padStart(2, '0');
+  row.innerHTML = `
+    <div class="skill-num">${num}</div>
+    <div class="skill-main">
+      <div class="skill-group">${s.group}</div>
+      <div class="skill-items">${s.items.join(' · ')}</div>
+    </div>`;
+  skillsListEl.appendChild(row);
 });
 
 // ── Education ─────────────────────────────────────────────────────
