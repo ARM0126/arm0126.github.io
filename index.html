@@ -488,6 +488,7 @@
     <a href="#skills">Skills</a>
     <a href="#honors">Honors</a>
     <a href="#publications">Publications</a>
+    <a href="#conferences">Talks</a>
     <a href="#gallery">Gallery</a>
     <a href="#contact">Contact</a>
     <a href="#news">News</a>
@@ -571,6 +572,19 @@
     <div class="section-body collapsed" id="pub-body">
       <div class="section-body-inner">
         <div class="pub-list" id="pub-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CONFERENCES ── -->
+  <div class="section" id="conferences">
+    <button class="section-toggle" aria-expanded="false" data-target="conf-body">
+      <span class="section-title">Conference Presentations</span>
+      <span class="section-icon">✕</span>
+    </button>
+    <div class="section-body collapsed" id="conf-body">
+      <div class="section-body-inner">
+        <div class="exp-list" id="conf-list"></div>
       </div>
     </div>
   </div>
@@ -763,9 +777,27 @@ const HONORS = [
     link:  "",
   },
   {
-    title: "[Exact certificate title]",
-    org:   "IBM · Coursera",
-    date:  "[year]",
+    title: "Junior Faculty Develpment Program Fellowship",
+    org:   "United States Department of State",
+    date:  "2011",
+    link:  "",
+  },
+  {
+    title: "Artificial Neural Networks and Deep Learning Certificate",
+    org:   "DeepLearning.AI",
+    date:  "2021",
+    link:  "",
+  },
+  {
+    title: "Machine Learning With Python Certificate",
+    org:   "IBM",
+    date:  "2020",
+    link:  "",
+  },
+  {
+    title: "Databases and SQL Certificate",
+    org:   "IBM",
+    date:  "2020",
     link:  "",
   },
 ];
@@ -905,6 +937,46 @@ const PUBS = [
   },
 
 ];
+
+const CONFERENCES = [
+  {
+    title: "",
+    event: "World Molecular Imaging Congress (WMIC)",
+    place: "Salt Lake City, UT",
+    date:  "Sep 2026",
+  },
+  {
+    title: "Magnetic Nanoparticles and Their Unique Properties",
+    event: "Discover USC, University of South Carolina · Three Minute Thesis",
+    place: "Online",
+    date:  "Apr 2021",
+  },
+  {
+    title: "Bond Orientational Correlation Analysis of Magnetic Nanoparticle Arrays",
+    event: "NSF EPSCoR / MADE in SC Conference Series",
+    place: "Online",
+    date:  "Jul 2020",
+  },
+  {
+    title: "Magnetic Recording and Nanoparticle Self-Assembly",
+    event: "NSF EPSCoR / MADE in SC",
+    place: "Greenville, SC",
+    date:  "Apr 2019",
+  },
+  {
+    title: "Self-Assembly of Magnetic Nanoparticles on Magnetically Recorded Templates",
+    event: "Joint MMM / Intermag Conference",
+    place: "Washington, DC",
+    date:  "Jan 2019",
+  },
+  {
+    title: "Social Entrepreneurship for Afghanistan",
+    event: "Fulbright / Institute of International Education",
+    place: "Oxford, OH",
+    date:  "Sep 2012",
+  },
+];
+
 
 const GALLERIES = [
   {
@@ -1106,6 +1178,22 @@ PUBS.forEach(p => {
   });
 
   pubListEl.appendChild(item);
+});
+
+// ── Conferences ───────────────────────────────────────────────────
+const confListEl = document.getElementById('conf-list');
+CONFERENCES.forEach(c => {
+  const d = document.createElement('div');
+  d.className = 'exp-item';
+  const head = c.title ? `“${c.title}”` : c.event;
+  const sub  = c.title ? `${c.event} · ${c.place}` : c.place;
+  d.innerHTML = `
+    <div>
+      <div class="exp-role">${head}</div>
+      <div class="exp-org">${sub}</div>
+    </div>
+    <div class="exp-date">${c.date}</div>`;
+  confListEl.appendChild(d);
 });
 
 // ── Contact ───────────────────────────────────────────────────────
