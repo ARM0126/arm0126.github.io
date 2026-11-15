@@ -486,6 +486,7 @@
     <a href="#education">Education</a>
     <a href="#experience">Experience</a>
     <a href="#skills">Skills</a>
+    <a href="#honors">Honors</a>
     <a href="#publications">Publications</a>
     <a href="#gallery">Gallery</a>
     <a href="#contact">Contact</a>
@@ -544,6 +545,19 @@
     <div class="section-body collapsed" id="skills-body">
       <div class="section-body-inner">
         <div class="skills-list" id="skills-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── HONORS & CERTIFICATIONS ── -->
+  <div class="section" id="honors">
+    <button class="section-toggle" aria-expanded="false" data-target="honors-body">
+      <span class="section-title">Honors &amp; Certifications</span>
+      <span class="section-icon">✕</span>
+    </button>
+    <div class="section-body collapsed" id="honors-body">
+      <div class="section-body-inner">
+        <div class="exp-list" id="honors-list"></div>
       </div>
     </div>
   </div>
@@ -732,6 +746,27 @@ const SKILLS = [
   {
     group: "Languages",
     items: ["English", "Persian", "Russian", "Pashto"],
+  },
+];
+
+const HONORS = [
+  {
+    title: "Fulbright Scholarship",
+    org:   "US Department of State and Institute for Internation Education",
+    date:  "2012",
+    link:  "",
+  },
+  {
+    title: "Medal of Teaching Excellence",
+    org:   "University of Purdue Center for Teaching Excellence",
+    date:  "2011",
+    link:  "",
+  },
+  {
+    title: "[Exact certificate title]",
+    org:   "IBM · Coursera",
+    date:  "[year]",
+    link:  "",
   },
 ];
 
@@ -1008,6 +1043,23 @@ EDUCATION.forEach(e => {
     </div>
     <div class="exp-date">${e.date}</div>`;
   eduListEl.appendChild(d);
+});
+
+// ── Honors & Certifications ───────────────────────────────────────
+const honorsListEl = document.getElementById('honors-list');
+HONORS.forEach(h => {
+  const d = document.createElement('div');
+  d.className = 'exp-item';
+  const verify = h.link
+    ? ` · <a href="${h.link}" target="_blank" rel="noopener">verify</a>`
+    : '';
+  d.innerHTML = `
+    <div>
+      <div class="exp-role">${h.title}</div>
+      <div class="exp-org">${h.org}${verify}</div>
+    </div>
+    <div class="exp-date">${h.date}</div>`;
+  honorsListEl.appendChild(d);
 });
 
 // ── Experience ────────────────────────────────────────────────────
